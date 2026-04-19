@@ -1,0 +1,1186 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mon CEB à moi 🌟</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream:#FFF8F0;--cream2:#FFF3E5;--blue-soft:#E8F4FD;--blue:#4A90D9;--blue-dark:#2C6FAC;
+    --green:#52C97B;--green-dark:#2D9A52;--orange:#FF9B3D;--orange-dark:#E07820;
+    --purple:#9B6FD4;--purple-dark:#7046AD;--red:#FF6B6B;--yellow:#FFD93D;--yellow-dark:#E5BE2A;
+    --text:#2D2D2D;--text-muted:#7A7A8A;--border:rgba(0,0,0,0.1);
+    --shadow:0 4px 20px rgba(0,0,0,0.08);--shadow-hover:0 8px 30px rgba(0,0,0,0.15);
+    --radius:16px;--radius-lg:24px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Nunito',sans-serif;background:var(--cream);color:var(--text);min-height:100vh;font-size:18px;line-height:1.6;}
+  h1,h2,h3,h4{font-family:'Baloo 2',cursive;}
+  .screen{display:none;min-height:100vh;padding:24px 20px;}
+  .screen.active{display:flex;flex-direction:column;align-items:center;animation:fadeIn 0.3s ease;}
+  @keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+  #screen-welcome{background:linear-gradient(160deg,#E8F4FD 0%,#FFF3E5 50%,#F0EDF9 100%);justify-content:center;text-align:center;gap:24px;}
+  .welcome-mascot{font-size:80px;animation:bounce 2s infinite;}
+  @keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+  .welcome-title{font-size:48px;font-weight:800;color:var(--blue-dark);line-height:1.1;}
+  .welcome-sub{font-size:22px;color:var(--text-muted);max-width:500px;}
+  .input-group{display:flex;flex-direction:column;gap:12px;width:100%;max-width:400px;}
+  .input-field{padding:16px 20px;border:2px solid var(--border);border-radius:var(--radius);font-size:18px;font-family:'Nunito',sans-serif;background:white;outline:none;transition:border-color 0.2s;}
+  .input-field:focus{border-color:var(--blue);}
+  .btn-primary{padding:16px 40px;background:var(--blue);color:white;border:none;border-radius:var(--radius);font-size:20px;font-family:'Baloo 2',cursive;font-weight:700;cursor:pointer;transition:all 0.2s;box-shadow:0 4px 15px rgba(74,144,217,0.4);}
+  .btn-primary:hover{background:var(--blue-dark);transform:translateY(-2px);}
+  .btn-secondary{padding:12px 28px;background:white;color:var(--text);border:2px solid var(--border);border-radius:var(--radius);font-size:16px;font-family:'Nunito',sans-serif;cursor:pointer;transition:all 0.2s;}
+  .btn-secondary:hover{border-color:var(--blue);color:var(--blue);}
+  .teacher-link{font-size:14px;color:var(--text-muted);cursor:pointer;text-decoration:underline;margin-top:8px;}
+  #screen-dashboard{background:var(--cream);gap:20px;max-width:800px;margin:0 auto;width:100%;}
+  .top-bar{display:flex;justify-content:space-between;align-items:center;width:100%;background:white;border-radius:var(--radius-lg);padding:16px 20px;box-shadow:var(--shadow);}
+  .user-info{display:flex;align-items:center;gap:12px;}
+  .avatar{width:48px;height:48px;background:var(--blue);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Baloo 2',cursive;font-weight:800;font-size:18px;color:white;}
+  .user-name{font-weight:700;font-size:18px;}
+  .user-class{font-size:14px;color:var(--text-muted);}
+  .points-bar{display:flex;align-items:center;gap:10px;}
+  .points-badge{display:flex;align-items:center;gap:6px;background:var(--yellow);padding:8px 14px;border-radius:50px;font-weight:700;font-size:15px;color:var(--yellow-dark);}
+  .stars-badge{display:flex;align-items:center;gap:6px;background:var(--orange);padding:8px 14px;border-radius:50px;font-weight:700;font-size:15px;color:white;}
+  .section-title{font-size:26px;font-weight:700;color:var(--text);width:100%;}
+  .subject-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;width:100%;}
+  .subject-card{background:white;border-radius:var(--radius-lg);padding:24px;cursor:pointer;transition:all 0.25s;box-shadow:var(--shadow);border:2.5px solid transparent;position:relative;overflow:hidden;}
+  .subject-card::before{content:'';position:absolute;top:0;left:0;right:0;height:5px;border-radius:var(--radius-lg) var(--radius-lg) 0 0;}
+  .subject-card.math::before{background:var(--blue);}
+  .subject-card.francais::before{background:var(--purple);}
+  .subject-card.eveil::before{background:var(--green);}
+  .subject-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-hover);}
+  .subject-card.math:hover{border-color:var(--blue);}
+  .subject-card.francais:hover{border-color:var(--purple);}
+  .subject-card.eveil:hover{border-color:var(--green);}
+  .subject-icon{font-size:40px;margin-bottom:10px;}
+  .subject-name{font-size:22px;font-weight:700;margin-bottom:4px;}
+  .subject-card.math .subject-name{color:var(--blue-dark);}
+  .subject-card.francais .subject-name{color:var(--purple-dark);}
+  .subject-card.eveil .subject-name{color:var(--green-dark);}
+  .subject-desc{font-size:14px;color:var(--text-muted);margin-bottom:14px;}
+  .subject-progress{background:#f0f0f0;border-radius:50px;height:8px;overflow:hidden;}
+  .subject-progress-bar{height:100%;border-radius:50px;transition:width 0.8s ease;}
+  .math .subject-progress-bar{background:var(--blue);}
+  .francais .subject-progress-bar{background:var(--purple);}
+  .eveil .subject-progress-bar{background:var(--green);}
+  .progress-label{font-size:13px;color:var(--text-muted);margin-top:6px;}
+  .badges-section{width:100%;background:white;border-radius:var(--radius-lg);padding:20px;box-shadow:var(--shadow);}
+  .badges-title{font-size:20px;font-weight:700;margin-bottom:14px;}
+  .badges-row{display:flex;gap:12px;flex-wrap:wrap;}
+  .badge-item{display:flex;flex-direction:column;align-items:center;gap:4px;background:var(--cream2);border-radius:12px;padding:10px 14px;font-size:12px;color:var(--text-muted);text-align:center;min-width:70px;transition:transform 0.2s;}
+  .badge-item:hover{transform:scale(1.05);}
+  .badge-item .badge-emoji{font-size:28px;}
+  .badge-item.locked{opacity:0.35;filter:grayscale(1);}
+  #screen-subject{background:var(--cream);gap:20px;max-width:800px;margin:0 auto;width:100%;}
+  .back-btn{display:flex;align-items:center;gap:8px;background:white;border:none;border-radius:50px;padding:10px 20px;font-size:16px;cursor:pointer;color:var(--text-muted);font-family:'Nunito',sans-serif;align-self:flex-start;transition:all 0.2s;box-shadow:var(--shadow);}
+  .back-btn:hover{color:var(--text);transform:translateX(-3px);}
+  .domain-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;width:100%;}
+  .domain-card{background:white;border-radius:var(--radius);padding:20px;cursor:pointer;transition:all 0.2s;box-shadow:var(--shadow);text-align:center;border:2px solid transparent;}
+  .domain-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-hover);}
+  .domain-icon{font-size:36px;margin-bottom:8px;}
+  .domain-name{font-size:16px;font-weight:700;margin-bottom:6px;}
+  .domain-score{display:inline-block;padding:3px 12px;border-radius:50px;font-size:13px;font-weight:600;}
+  #screen-exercise{background:var(--cream);gap:20px;max-width:800px;margin:0 auto;width:100%;}
+  .exercise-header{display:flex;justify-content:space-between;align-items:center;width:100%;background:white;border-radius:var(--radius);padding:14px 20px;box-shadow:var(--shadow);}
+  .exercise-meta{font-size:15px;color:var(--text-muted);}
+  .exercise-meta strong{color:var(--text);}
+  .question-counter{display:flex;gap:6px;}
+  .q-dot{width:12px;height:12px;border-radius:50%;background:#e0e0e0;transition:background 0.3s;}
+  .q-dot.done{background:var(--green);}
+  .q-dot.wrong{background:var(--red);}
+  .q-dot.current{background:var(--blue);}
+  .question-card{width:100%;background:white;border-radius:var(--radius-lg);padding:28px;box-shadow:var(--shadow);}
+  .question-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px;}
+  .question-tag{font-size:13px;font-weight:700;padding:4px 12px;border-radius:50px;text-transform:uppercase;letter-spacing:0.5px;}
+  .hint-btn{display:flex;align-items:center;gap:6px;background:var(--yellow);border:none;border-radius:50px;padding:8px 16px;font-size:14px;font-weight:600;cursor:pointer;color:var(--yellow-dark);font-family:'Nunito',sans-serif;transition:all 0.2s;}
+  .hint-btn:hover{background:var(--yellow-dark);color:white;}
+  .hint-box{background:#FFFBEA;border:2px dashed var(--yellow-dark);border-radius:var(--radius);padding:14px 18px;margin-bottom:16px;font-size:16px;color:#7A6200;display:none;}
+  .question-text{font-size:20px;font-weight:600;line-height:1.5;margin-bottom:8px;color:var(--text);font-family:'Baloo 2',cursive;}
+  .question-context{font-size:16px;color:var(--text-muted);margin-bottom:20px;background:var(--blue-soft);border-radius:12px;padding:14px 16px;border-left:4px solid var(--blue);line-height:1.7;display:none;}
+  .options-grid{display:flex;flex-direction:column;gap:10px;}
+  .option-btn{padding:14px 20px;border:2px solid var(--border);border-radius:var(--radius);background:white;font-size:17px;font-family:'Nunito',sans-serif;cursor:pointer;text-align:left;transition:all 0.2s;display:flex;align-items:center;gap:12px;color:var(--text);}
+  .option-btn:hover:not(:disabled){border-color:var(--blue);background:var(--blue-soft);color:var(--blue-dark);}
+  .option-btn:disabled{cursor:default;}
+  .option-btn.selected{border-color:var(--blue);background:var(--blue-soft);}
+  .option-btn.correct{border-color:var(--green);background:#E8F9EE;color:var(--green-dark);}
+  .option-btn.wrong-sel{border-color:var(--red);background:#FFEEEE;color:#C0392B;}
+  .option-letter{width:32px;height:32px;border-radius:50%;background:#f0f0f0;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:15px;flex-shrink:0;transition:all 0.2s;}
+  .option-btn.selected .option-letter{background:var(--blue);color:white;}
+  .option-btn.correct .option-letter{background:var(--green);color:white;}
+  .option-btn.wrong-sel .option-letter{background:var(--red);color:white;}
+  .fill-text{font-size:18px;line-height:2.4;margin-bottom:12px;}
+  .blank-input{display:inline-block;min-width:120px;padding:4px 10px;border:none;border-bottom:3px solid var(--blue);font-size:18px;font-family:'Nunito',sans-serif;background:transparent;outline:none;text-align:center;color:var(--blue-dark);font-weight:700;}
+  .blank-input.correct{border-color:var(--green);color:var(--green-dark);}
+  .blank-input.wrong{border-color:var(--red);color:var(--red);}
+  .drag-container{margin-bottom:16px;}
+  .drag-items{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px;}
+  .drag-item{padding:10px 18px;background:var(--blue-soft);border:2px solid var(--blue);border-radius:50px;font-size:16px;cursor:grab;font-weight:600;color:var(--blue-dark);user-select:none;transition:all 0.2s;}
+  .drag-item:hover{background:var(--blue);color:white;}
+  .drag-item.used{opacity:0.3;cursor:not-allowed;}
+  .drop-zones{display:flex;flex-direction:column;gap:10px;}
+  .drop-zone{border:2px dashed var(--border);border-radius:var(--radius);padding:14px 18px;min-height:56px;display:flex;align-items:center;gap:10px;transition:all 0.2s;font-size:16px;color:var(--text-muted);}
+  .drop-zone.dragover{border-color:var(--blue);background:var(--blue-soft);}
+  .drop-zone .drop-label{font-weight:600;color:var(--text);flex-shrink:0;}
+  .dropped-item{padding:6px 14px;background:var(--blue);color:white;border-radius:50px;font-size:15px;font-weight:600;cursor:pointer;}
+  .drop-zone.correct{border-color:var(--green);background:#E8F9EE;}
+  .drop-zone.wrong{border-color:var(--red);background:#FFEEEE;}
+  .validate-btn{width:100%;padding:16px;background:var(--blue);color:white;border:none;border-radius:var(--radius);font-size:20px;font-family:'Baloo 2',cursive;font-weight:700;cursor:pointer;transition:all 0.2s;box-shadow:0 4px 15px rgba(74,144,217,0.35);margin-top:16px;}
+  .validate-btn:hover:not(:disabled){background:var(--blue-dark);transform:translateY(-2px);}
+  .validate-btn:disabled{background:#ccc;cursor:not-allowed;transform:none;box-shadow:none;}
+  .feedback-box{width:100%;border-radius:var(--radius-lg);padding:24px;display:none;animation:slideIn 0.4s ease;}
+  @keyframes slideIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+  .feedback-box.success{background:#E8F9EE;border:2px solid var(--green);}
+  .feedback-box.retry{background:#FFF8E0;border:2px solid var(--yellow-dark);}
+  .feedback-box.error{background:#FFF3F3;border:2px solid var(--orange);}
+  .feedback-title{font-size:22px;font-weight:700;margin-bottom:8px;font-family:'Baloo 2',cursive;}
+  .feedback-box.success .feedback-title{color:var(--green-dark);}
+  .feedback-box.retry .feedback-title{color:#7A6200;}
+  .feedback-box.error .feedback-title{color:var(--orange-dark);}
+  .feedback-text{font-size:16px;line-height:1.7;}
+  .feedback-explanation{margin-top:12px;padding:14px;background:white;border-radius:12px;font-size:15px;line-height:1.7;color:var(--text);}
+  .feedback-explanation.good{border-left:4px solid var(--green);}
+  .feedback-explanation.bad{border-left:4px solid var(--orange);}
+  .next-btn{margin-top:14px;padding:14px 32px;border:none;border-radius:var(--radius);font-size:18px;font-family:'Baloo 2',cursive;font-weight:700;cursor:pointer;transition:all 0.2s;}
+  .feedback-box.success .next-btn{background:var(--green);color:white;}
+  .feedback-box.retry .next-btn{background:var(--yellow-dark);color:white;}
+  .feedback-box.error .next-btn{background:var(--orange);color:white;}
+  .next-btn:hover{transform:translateY(-2px);opacity:0.9;}
+  #screen-results{background:linear-gradient(160deg,#E8F4FD 0%,#FFF3E5 100%);gap:24px;max-width:700px;margin:0 auto;width:100%;justify-content:center;text-align:center;}
+  .result-emoji{font-size:80px;}
+  .result-title{font-size:36px;font-weight:800;color:var(--blue-dark);}
+  .result-score{font-size:64px;font-weight:800;}
+  .score-good{color:var(--green-dark);}
+  .score-mid{color:var(--orange-dark);}
+  .score-low{color:var(--red);}
+  .result-stats{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;}
+  .result-stat{background:white;border-radius:var(--radius);padding:16px 24px;min-width:120px;box-shadow:var(--shadow);}
+  .stat-num{font-size:30px;font-weight:800;font-family:'Baloo 2',cursive;}
+  .stat-label{font-size:14px;color:var(--text-muted);}
+  .new-badges{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
+  .new-badge{background:white;border-radius:var(--radius);padding:16px 20px;box-shadow:var(--shadow);text-align:center;animation:popIn 0.5s cubic-bezier(0.175,0.885,0.32,1.275);}
+  @keyframes popIn{0%{transform:scale(0);opacity:0}100%{transform:scale(1);opacity:1}}
+  .new-badge-emoji{font-size:36px;}
+  .new-badge-label{font-size:13px;font-weight:700;color:var(--orange-dark);}
+  #screen-teacher{background:var(--cream);gap:20px;max-width:900px;margin:0 auto;width:100%;}
+  .teacher-header{width:100%;background:white;border-radius:var(--radius-lg);padding:20px 24px;display:flex;justify-content:space-between;align-items:center;box-shadow:var(--shadow);}
+  .teacher-title{font-size:26px;font-weight:700;}
+  .stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;width:100%;}
+  .stat-card{background:white;border-radius:var(--radius);padding:20px;text-align:center;box-shadow:var(--shadow);}
+  .stat-card .num{font-size:36px;font-weight:800;font-family:'Baloo 2',cursive;color:var(--blue);}
+  .stat-card .lbl{font-size:14px;color:var(--text-muted);}
+  .students-table{width:100%;background:white;border-radius:var(--radius-lg);padding:20px 24px;box-shadow:var(--shadow);overflow-x:auto;}
+  .students-table table{width:100%;border-collapse:collapse;}
+  .students-table th{text-align:left;padding:10px 12px;font-size:14px;color:var(--text-muted);border-bottom:1px solid var(--border);font-weight:600;}
+  .students-table td{padding:12px 12px;font-size:15px;border-bottom:1px solid #f0f0f0;vertical-align:middle;}
+  .students-table tr:last-child td{border-bottom:none;}
+  .level-pill{padding:4px 12px;border-radius:50px;font-size:13px;font-weight:600;}
+  .level-1{background:#FFE5E5;color:var(--red);}
+  .level-2{background:#FFF3E0;color:var(--orange-dark);}
+  .level-3{background:#E8F9EE;color:var(--green-dark);}
+  .mini-bar{width:80px;height:8px;background:#f0f0f0;border-radius:50px;overflow:hidden;display:inline-block;}
+  .mini-bar-fill{height:100%;border-radius:50px;}
+  .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.5);display:none;align-items:center;justify-content:center;z-index:1000;}
+  .modal-overlay.visible{display:flex;}
+  .modal-box{background:white;border-radius:var(--radius-lg);padding:32px;max-width:400px;width:90%;text-align:center;}
+  .modal-title{font-size:24px;font-weight:700;margin-bottom:16px;}
+  .modal-box .input-field{width:100%;margin-bottom:12px;}
+  .speak-btn{background:none;border:none;cursor:pointer;font-size:20px;padding:4px 8px;border-radius:8px;transition:background 0.2s;color:var(--blue);}
+  .speak-btn:hover{background:var(--blue-soft);}
+  #tts-indicator{position:fixed;bottom:20px;right:20px;background:var(--blue);color:white;padding:10px 18px;border-radius:50px;font-size:14px;font-weight:600;display:none;z-index:999;box-shadow:var(--shadow);animation:pulse 1s infinite;}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.7}}
+  .confetti-piece{position:fixed;width:10px;height:10px;border-radius:2px;animation:confettiFall 3s ease-in forwards;z-index:9999;pointer-events:none;}
+  @keyframes confettiFall{0%{transform:translateY(-20px) rotate(0deg);opacity:1}100%{transform:translateY(100vh) rotate(720deg);opacity:0}}
+  .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);}
+  @media(max-width:600px){.welcome-title{font-size:34px;}.question-text{font-size:18px;}body{font-size:16px;}}
+  .attempt-indicator{display:flex;gap:8px;align-items:center;margin-top:12px;font-size:14px;color:var(--text-muted);}
+  .attempt-dot{width:14px;height:14px;border-radius:50%;border:2px solid var(--border);background:white;transition:all 0.3s;}
+  .attempt-dot.used{background:var(--orange);border-color:var(--orange-dark);} }
+
+  .logo-lebocal {
+    position: fixed; top: 12px; left: 12px; z-index: 500;
+    width: 48px; height: 48px;
+    pointer-events: none;
+  }
+  .logo-lebocal svg { width: 100%; height: 100%; }
+  @media(max-width:600px){ .logo-lebocal { width:38px; height:38px; top:8px; left:8px; } }
+
+  .logo-lebocal {
+    position: fixed;
+    top: 12px;
+    left: 12px;
+    z-index: 500;
+    width: 95px;
+    height: 95px;
+    pointer-events: none;
+    opacity: 0.85;
+  }
+  @media(max-width:600px){
+    .logo-lebocal { width:70px; height:70px; top:8px; left:8px; }
+  }
+
+</style>
+</head>
+<body>
+<div class="logo-lebocal"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 3000 3000" style="width:100%;height:100%;">
+  
+  <g>
+    <path fill="#1d1d1b" d="M412.95,2599.69h52.39v291.31h156.93v20.2h-209.32v-311.51Z"/>
+    <path fill="#1d1d1b" d="M885.63,2599.69v20.2h-164.22v111.35h109.95v20.21h-109.95v139.55h164.22v20.2h-216.61v-311.51h216.61Z"/>
+    <path fill="#1d1d1b" d="M1045.85,2599.69h125.45c16.6,0,31.84,1.84,45.7,5.52,13.86,3.68,25.76,8.89,35.7,15.62,9.95,6.74,17.67,14.8,23.15,24.2,5.48,9.39,8.22,19.73,8.22,31.01,0,8.61-.86,16.29-2.58,23.02-1.73,6.73-4.78,12.96-9.16,18.67-4.39,5.72-10.23,11.13-17.5,16.22-7.29,5.09-16.5,10.3-27.61,15.62v.94c11.12,1.73,21.15,4.69,30.07,8.93,8.93,4.22,16.57,9.59,22.91,16.09,6.35,6.5,11.24,14.09,14.69,22.79,3.45,8.69,5.16,18.2,5.16,28.54,0,11.75-2.54,22.75-7.63,33.01-5.09,10.26-12.38,19.19-21.85,26.79-9.48,7.59-20.91,13.58-34.3,17.97-13.38,4.39-28.39,6.58-44.99,6.58h-145.42v-311.51ZM1098.24,2739.94h66.71c10.49,0,19.82-1.49,27.96-4.46,8.15-2.98,15.05-7.08,20.68-12.34,5.63-5.24,9.91-11.51,12.81-18.8,2.89-7.28,4.34-15.15,4.34-23.61,0-9.08-1.72-17.35-5.16-24.79-3.45-7.43-8.81-13.81-16.09-19.14-7.29-5.32-16.53-9.4-27.73-12.21-11.19-2.82-24.62-4.24-40.29-4.24h-43.22v119.58ZM1098.24,2888.41h56.61c15.19,0,28.39-1.44,39.59-4.34,11.19-2.9,20.44-6.97,27.71-12.22,7.29-5.24,12.69-11.55,16.22-18.91,3.52-7.35,5.28-15.42,5.28-24.19,0-9.87-1.56-19.03-4.69-27.49-3.14-8.46-8.27-15.78-15.39-21.97-7.14-6.19-16.45-11.08-27.96-14.69-11.51-3.6-25.65-5.41-42.4-5.41h-54.97v129.21Z"/>
+    <path fill="#1d1d1b" d="M1521.81,2918.49c-24.12,0-46.63-4.31-67.54-12.92-20.91-8.61-39.09-20.4-54.5-35.36-15.43-14.96-27.57-32.42-36.41-52.39-8.85-19.97-13.28-41.31-13.28-64.01,0-14.88,2-29.22,5.99-43,3.99-13.77,9.67-26.62,17.03-38.53,7.36-11.89,16.24-22.74,26.67-32.53,10.4-9.78,21.97-18.16,34.65-25.13,12.68-6.97,26.43-12.38,41.23-16.22,14.79-3.83,30.18-5.75,46.16-5.75s31.56,1.92,46.28,5.75c14.72,3.84,28.46,9.25,41.23,16.22,12.76,6.97,24.31,15.35,34.65,25.13,10.34,9.79,19.22,20.64,26.66,32.53,7.44,11.9,13.16,24.75,17.16,38.53,3.99,13.79,5.99,28.12,5.99,43s-2,29.75-5.99,43.69c-3.99,13.94-9.72,27.01-17.16,39.24-7.44,12.21-16.32,23.34-26.66,33.36s-21.89,18.63-34.65,25.83c-12.77,7.21-26.52,12.77-41.23,16.69-14.73,3.9-30.16,5.88-46.28,5.88ZM1521.81,2902.98c17.86,0,33.63-3.73,47.34-11.17,13.7-7.44,25.26-17.81,34.65-31.12,9.4-13.32,16.48-29.05,21.27-47.23,4.78-18.16,7.16-38.05,7.16-59.66s-2.38-41.12-7.16-58.98c-4.78-17.84-11.87-33.23-21.27-46.16-9.39-12.92-20.95-22.94-34.65-30.07-13.71-7.14-29.48-10.7-47.34-10.7s-34.1,3.56-47.81,10.7c-13.7,7.12-25.21,17.15-34.53,30.07-9.32,12.92-16.33,28.31-21.02,46.16-4.69,17.86-7.05,37.52-7.05,58.98s2.35,41.5,7.05,59.66c4.69,18.18,11.7,33.91,21.02,47.23,9.32,13.32,20.83,23.68,34.53,31.12,13.71,7.44,29.65,11.17,47.81,11.17Z"/>
+    <path fill="#1d1d1b" d="M1813.59,2756.61c0,21.77,3.28,41.31,9.86,58.62,6.59,17.3,15.63,31.95,27.14,43.93,11.51,11.98,25.09,21.14,40.75,27.49,15.67,6.35,32.66,9.51,50.99,9.51,10.95,0,21.53-2.11,31.71-6.35,10.18-4.22,19.63-9.74,28.31-16.56s16.48-14.49,23.38-23.02c6.88-8.53,12.53-17.18,16.92-25.96l22.08,14.09c-6.42,10.49-14.02,20.55-22.79,30.19-8.78,9.63-18.91,18.16-30.42,25.6-11.51,7.44-24.51,13.35-39,17.73-14.49,4.39-30.65,6.59-48.51,6.59-25.84,0-49.3-4.31-70.36-12.92-21.06-8.61-39.11-20.29-54.16-35-15.03-14.73-26.66-31.91-34.89-51.58-8.22-19.65-12.32-40.45-12.32-62.37,0-14.56,1.88-28.77,5.63-42.63,3.76-13.86,9.2-26.86,16.33-39,7.12-12.15,15.81-23.26,26.07-33.36,10.25-10.11,21.85-18.8,34.77-26.09,12.92-7.28,27.05-12.91,42.4-16.9,15.34-3.99,31.71-5.99,49.1-5.99s31.91,2.23,45.93,6.69c14.02,4.46,26.79,10.38,38.3,17.74,11.51,7.35,21.76,15.85,30.78,25.49,9,9.63,16.71,19.69,23.14,30.18l-22.79,15.03c-13-25.21-27.56-43.65-43.69-55.33-16.14-11.66-34.7-17.5-55.68-17.5-18.01,0-34.85,3.29-50.51,9.87-15.67,6.58-29.33,15.97-40.99,28.2-11.68,12.21-20.83,27.05-27.49,44.52-6.66,17.46-9.98,37.15-9.98,59.08Z"/>
+    <path fill="#1d1d1b" d="M2264.87,2592.64l146.6,318.56h-53.33l-47.45-103.84h-133.68l-49.1,103.84h-26.32l150.12-318.56h13.15ZM2186.17,2787.15h114.89l-56.62-123.34-58.27,123.34Z"/>
+    <path fill="#1d1d1b" d="M2454.7,2599.69h52.39v291.31h156.93v20.2h-209.32v-311.51Z"/>
+  </g>
+  <g>
+    <path d="M2680.48,870.87c-36.81-112.3-91.36-218.76-160.11-314.85-67.7-94.63-149.78-178.87-242.6-249.02-94.43-71.37-199.28-128.93-310.75-168.83-118.13-42.29-242.2-65.62-367.59-69.8-128.04-4.27-257.35,11.69-380.52,46.95-118.96,34.06-233.34,85.5-336.78,153.52-101.33,66.63-192.39,147.59-269.76,241.03-75.3,90.93-136.32,193.56-181.13,302.76-45.53,110.94-73.28,228.95-82.23,348.53-9.23,123.21.26,247.85,29.73,367.9,28.41,115.73,75.33,225.87,137.31,327.55,60.61,99.42,136.39,189.48,223.9,266.28,88.49,77.66,189.07,142.31,296.63,190.2,110.74,49.31,229.68,81.55,350.2,94.6,131.48,14.24,263.43,7.41,392.92-19.18,121.98-25.05,240.07-69.85,348.82-130.38,103.93-57.85,199.74-131.44,281.86-217.51,82.48-86.44,151.69-183.53,205.09-290.48,53.44-107.04,90.44-221.74,108.53-340.06,9.19-60.1,13.25-120.74,13.34-181.53-.17-121.33-19.04-242.34-56.85-357.67ZM2584.47,1602.68c-8.84,27.21-18.7,54.09-29.57,80.56-5.6,13.64-11.46,27.17-17.58,40.58-2.74,6-5.53,11.97-8.37,17.92-1.53,3.2-3.07,6.4-4.63,9.58-.67,1.36-1.34,2.73-2.01,4.09-.27.54-.43.87-.54,1.09-.27.53-.53,1.06-.8,1.59-25.82,50.79-55.19,99.7-88.16,146.18-16.55,23.33-33.98,46.05-52.22,68.08-8.95,10.81-18.1,21.46-27.44,31.94-4.67,5.24-9.39,10.43-14.15,15.58-1.54,1.67-3.1,3.33-4.65,4.99,1.54-1.66-4.32,4.53-5.53,5.78-39.67,41.14-82.39,79.33-127.71,114.14-11.15,8.57-22.48,16.89-33.91,25.08-.13.09-.2.14-.31.22-.48.33-1.08.74-1.93,1.33-2.9,2-5.79,4-8.7,5.98-5.82,3.96-11.68,7.87-17.57,11.72-24.04,15.72-48.68,30.54-73.83,44.41-12.4,6.84-24.93,13.4-37.56,19.81-.42.21-.72.37-1.06.54-.08.04-.13.06-.22.11-3.19,1.54-6.38,3.1-9.58,4.63-6.87,3.28-13.76,6.49-20.69,9.63-25.97,11.77-52.39,22.57-79.17,32.36-6.66,2.44-13.36,4.77-20.06,7.12-3.62,1.19-7.23,2.38-10.85,3.54-14.2,4.55-28.5,8.82-42.87,12.81-13.94,3.87-27.96,7.47-42.04,10.81-7.07,1.67-14.15,3.28-21.25,4.82-3.56.77-7.12,1.51-10.68,2.26-.04,0-.05.01-.09.02-.2.04-.35.07-.58.11-29.35,5.69-58.92,10.23-88.63,13.61-14.74,1.68-29.52,3.07-44.32,4.18-.61.04-3.11.22-5.32.38-1.95.11-6.67.4-8.01.47-8.02.42-16.05.76-24.08,1.01-30.12.96-60.28.75-90.39-.62-15.44-.71-30.86-1.76-46.26-3.04-.3-.03-.51-.04-.75-.06-.32-.03-.68-.07-1.13-.11-3.69-.37-7.37-.73-11.06-1.13-7.87-.84-15.73-1.76-23.59-2.76-58.33-7.46-116.08-19.4-172.57-35.74-1.82-.53-8.64-2.58-6.29-1.85-2.84-.87-5.67-1.73-8.5-2.62-7.34-2.3-14.66-4.67-21.96-7.11-13.58-4.55-27.07-9.36-40.46-14.42-26.65-10.07-52.92-21.14-78.75-33.18-26.14-12.18-51.81-25.36-76.95-39.48-12.31-6.91-24.49-14.06-36.53-21.42-6.01-3.68-11.99-7.41-17.94-11.2-2.97-1.89-5.93-3.8-8.89-5.72-1.27-.82-2.53-1.65-3.79-2.48-.5-.33-.79-.52-.99-.65-.4-.27-.86-.58-1.45-.97-94.11-63.4-178.91-139.9-250.86-227.71-72.58-88.59-129.9-185.05-172.82-291.27-43.97-108.79-70.89-224.28-79.81-341.27-9.05-118.8.9-238.73,29.24-354.76,27.49-112.58,71.02-217.75,129.32-313.96,29.69-48.99,63.05-95.74,99.7-139.77,8.98-10.79,18.16-21.41,27.53-31.87,4.35-4.85,8.74-9.67,13.17-14.44,1.34-1.45,5.63-5.97,4.4-4.7,2.28-2.38,4.55-4.77,6.84-7.13,19.88-20.51,40.52-40.28,61.87-59.26,20.99-18.66,42.66-36.56,64.95-53.64,11.12-8.52,22.33-17.01,33.86-24.96.69-.47,1.5-1.03,2.34-1.61,2.89-2,5.8-3.99,8.71-5.97,6.24-4.24,12.53-8.41,18.85-12.52,24.09-15.66,48.76-30.41,73.96-44.22,11.18-6.13,22.52-11.94,33.85-17.77,1.19-.29,4.06-2.07,5.05-2.55,2.73-1.33,5.47-2.65,8.22-3.95,6.87-3.27,13.77-6.47,20.71-9.6,26.46-11.95,53.37-22.89,80.66-32.78,6.19-2.24,12.43-4.32,18.62-6.55.21-.07.42-.14.62-.21,3.9-1.28,7.8-2.55,11.71-3.79,13.73-4.36,27.54-8.45,41.43-12.29,14.45-3.99,28.98-7.69,43.58-11.11,6.57-1.54,13.15-3.02,19.75-4.44,3.14-.68,6.28-1.32,9.42-1.98,1.16-.23,2.32-.45,3.47-.67,29.38-5.61,58.98-10.08,88.71-13.37,14.76-1.64,29.55-2.99,44.35-4.06,1.14-.08,2.29-.17,3.44-.24,3.3-.18,6.6-.38,9.9-.54,7.49-.37,14.99-.67,22.49-.9,30.66-.93,61.35-.66,91.99.82,14.72.71,29.4,1.79,44.08,2.98,1.34.13,2.68.26,4.02.39,3.68.37,7.37.75,11.05,1.16,7.86.86,15.72,1.8,23.57,2.83,29.05,3.79,57.95,8.7,86.63,14.71,28.86,6.05,57.48,13.22,85.77,21.49,1.1.32,2.2.65,3.3.97.34.1.72.22,1.16.36,2.95.91,5.89,1.81,8.83,2.74,7.34,2.31,14.65,4.69,21.94,7.15,14.05,4.73,28.01,9.74,41.87,15.02,53.56,20.4,105.57,44.85,155.47,73.06,12.29,6.95,24.45,14.12,36.47,21.52,6,3.69,11.97,7.44,17.91,11.24,2.97,1.9,5.92,3.82,8.87,5.74-.02-.01,1.15.76,1.9,1.25.9.6,2.78,1.86,3.05,2.04,23.76,15.98,46.95,32.78,69.47,50.46,44.55,34.97,86.53,73.23,125.47,114.36,78.22,82.62,143.56,175.88,193.27,276.85,51.34,104.27,86.54,216.31,104.13,331.2,8.86,57.88,13.17,116.37,13.25,174.92-.16,117.38-19.41,236.07-55.81,348.14Z"/>
+    <g>
+      <path d="M1201.46,1053.91v45.17h-434.3c-.86,0-8.09,8.1-8.91,10.12-3.48,176.09-2.03,353.38-.73,529.66,1.95,4.95,5.77,8.76,10.71,10.7h530.93c4.96-1.95,8.77-5.76,10.71-10.7,1.29-176.27,2.74-353.57-.73-529.66-.82-2.02-8.05-10.12-8.91-10.12h-34.51v-47.55c13.18,4.58,27.64.71,41.08,2.94,25.47,4.23,47.98,32.39,49.33,57.7v525.34c-3.58,30.82-26.73,55.49-58.18,58.37h-528.5c-32.55-2.98-55.28-28.79-58.29-60.64l-.03-527.96c1.2-18.5,30.77-53.38,48.9-53.38h441.44Z"/>
+      <path fill="#1d1d1b" d="M1515.59,1251.22h45.21v391.07c0,.91,5.99,5.77,7.75,6.52,177.85,3.47,356.91,2.04,534.94.73,6.55-2.56,10.37-6.79,9.54-14.24l-.03-518.5c1.66-5.82-5.45-17.72-10.82-17.72h-34.51v-43.98c0-5,20.56-3.83,24.95-3.53,31.79,2.18,55.67,17.91,65.33,48.84l.24,539.6c-3.42,30.84-29.88,54.3-60.69,55.86h-521.33c-22.65,2.21-60.6-29.73-60.6-51.2v-393.45Z"/>
+      <path fill="#1d1d1b" d="M2174.77,1384.35v-28.54c79.68-.91,159.64,2.28,239.17-2.36l5.77-3.74,2.05-355.92c-2.4-4.99-6.66-8.96-12.46-8.95l-348.89,1.17c-7.16,2.31-9.74,9.52-9.49,16.67l.06,335.37c-1.42,26.53,40.81,9.32,46.61,17.62,1.87,2.68,1.87,26.15,0,28.83-3.16,4.52-38.33.6-44.83-.69-15.64-3.1-26.24-17.01-30.14-31.7l-.26-358.95c.81-13.47,12.13-30.16,24.99-34.47,122.41-5.32,246.18-.63,369.09-2.38,15.65.52,28.14,14.02,34.94,26.91,4.25,120.98.63,242.94,1.84,364.29,1.44,13.16-20.75,36.84-32.13,36.84h-246.3Z"/>
+      <path fill="#1d1d1b" d="M1648.85,1037.27h-30.94v-193.75c0-5.94-10.12-9.13-15.37-8.42-109.15,6.5-227.69-8.32-335.72,0-14,1.08-16.82,1.1-17.87,15.44-7.87,108.36,6.19,226.06,0,335.41-1.66,5.81,5.45,17.72,10.82,17.72h34.51c2.47,6.48,3.87,29.2-2.42,32.2-1.77.85-34.88-.71-39.28-1.24-16.64-2-31.96-18.07-34.24-34.74l-.27-361.19c6.17-27.6,25.01-35.06,51.12-36.89,69.85-4.9,147.23-.33,216.56,0,31.14.15,116.17-5,140.13,5.22,6.58,2.81,22.98,21.03,22.98,26.97v203.26Z"/>
+      <path d="M1017.65,838.19c132.27-18,161.49,171.97,40.66,199.9-140.65,32.51-174.02-181.75-40.66-199.9Z"/>
+      <path fill="#1d1d1b" d="M2005.81,1053.91v41.6c0,2.6-5.81,3.41-8.21,3.69-37.56,4.4-85.66-2.06-123.91-2.7-95.44,10.89-200.35-5.71-295.14,2.48-5.77.5-17.75,3.99-17.75,10.79v77.26h-45.21v-82.02c0-8.39,12.58-27.14,18.97-33.35,5.59-5.44,25.38-17.76,32.2-17.76h439.06Z"/>
+      <path fill="#1d1d1b" d="M1829.22,869.18c111.03-9.03,120.57,153.78,20.46,165.45-116.16,13.54-129.56-156.58-20.46-165.45Z"/>
+      <path fill="#1d1d1b" d="M2226.55,793.03c84.45-12.01,113.65,108.72,36.93,136.72-100.99,36.86-134.51-122.84-36.93-136.72Z"/>
+      <path fill="#1d1d1b" d="M1419.83,657.51c107.32-15.73,107,147.5,0,131.89-70.94-10.35-70.87-121.51,0-131.89Z"/>
+      <path fill="#1d1d1b" d="M1648.85,1204.87c-1.67,8.12-22.66,29.72-29.75,29.72h-248.68v-30.91h239.16c.98,0,8.33-9.46,8.33-10.7v-79.64c5.82,2.39,30.94-5.25,30.94,1.19v90.34Z"/>
+      <circle fill="#1d1d1b" cx="897.43" cy="1490.48" r="50.43"/>
+      <circle fill="#1d1d1b" cx="1160.08" cy="1490.48" r="50.43"/>
+      <circle fill="#1d1d1b" cx="1024.23" cy="1490.48" r="50.43"/>
+    </g>
+  </g>
+</svg></div>
+<div id="tts-indicator">🔊 Lecture en cours...</div>
+
+<div class="modal-overlay" id="modal-teacher">
+  <div class="modal-box">
+    <div style="font-size:40px;margin-bottom:12px">🔐</div>
+    <div class="modal-title">Espace Enseignant</div>
+    <p style="color:var(--text-muted);margin-bottom:20px;font-size:15px">Entrez le code enseignant pour accéder au tableau de bord.</p>
+    <input type="password" class="input-field" id="teacher-code-input" placeholder="Code enseignant" />
+    <div id="teacher-code-error" style="color:var(--red);font-size:14px;margin-bottom:10px;display:none">Code incorrect. Réessayez.</div>
+    <button class="btn-primary" onclick="verifyTeacherCode()" style="width:100%;margin-bottom:10px">Accéder</button>
+    <button class="btn-secondary" onclick="closeTeacherModal()" style="width:100%">Annuler</button>
+  </div>
+</div>
+
+<div class="screen active" id="screen-welcome">
+  <h2 class="sr-only">Page d'accueil</h2>
+  <div class="welcome-mascot">🦉</div>
+  <h1 class="welcome-title">Mon CEB à moi !</h1>
+  <p class="welcome-sub">Entraîne-toi pour le CEB en t'amusant. Prêt(e) à relever le défi ?</p>
+  <div class="input-group">
+    <input type="text" class="input-field" id="input-prenom" placeholder="Ton prénom..." autocomplete="off" />
+    <input type="text" class="input-field" id="input-nom" placeholder="Ton nom de famille..." autocomplete="off" />
+    <input type="text" class="input-field" id="input-classe" placeholder="Ta classe (ex: 6A)..." autocomplete="off" />
+    <button class="btn-primary" onclick="startApp()">C'est parti ! 🚀</button>
+  </div>
+  <p class="teacher-link" onclick="openTeacherModal()">👩‍🏫 Accès enseignant</p>
+</div>
+
+<div class="screen" id="screen-dashboard">
+  <h2 class="sr-only">Tableau de bord</h2>
+  <div class="top-bar">
+    <div class="user-info">
+      <div class="avatar" id="user-avatar">?</div>
+      <div><div class="user-name" id="user-display-name">Prénom</div><div class="user-class" id="user-display-class">6A</div></div>
+    </div>
+    <div class="points-bar">
+      <div class="points-badge">⭐ <span id="total-points">0</span></div>
+      <div class="stars-badge">🏆 <span id="total-stars">0</span></div>
+    </div>
+  </div>
+  <div class="section-title">Quelle matière aujourd'hui ?</div>
+  <div class="subject-grid">
+    <div class="subject-card math" onclick="openSubject('mathematiques')">
+      <div class="subject-icon">🔢</div>
+      <div class="subject-name">Mathématiques</div>
+      <div class="subject-desc">Nombres, figures, grandeurs et données</div>
+      <div class="subject-progress"><div class="subject-progress-bar" id="prog-math" style="width:0%"></div></div>
+      <div class="progress-label" id="prog-math-label">0% réussi</div>
+    </div>
+    <div class="subject-card francais" onclick="openSubject('francais')">
+      <div class="subject-icon">📖</div>
+      <div class="subject-name">Français</div>
+      <div class="subject-desc">Lecture, grammaire, conjugaison, orthographe</div>
+      <div class="subject-progress"><div class="subject-progress-bar" id="prog-fr" style="width:0%"></div></div>
+      <div class="progress-label" id="prog-fr-label">0% réussi</div>
+    </div>
+    <div class="subject-card eveil" onclick="openSubject('eveil')">
+      <div class="subject-icon">🌍</div>
+      <div class="subject-name">Éveil</div>
+      <div class="subject-desc">Sciences, histoire, géographie</div>
+      <div class="subject-progress"><div class="subject-progress-bar" id="prog-ev" style="width:0%"></div></div>
+      <div class="progress-label" id="prog-ev-label">0% réussi</div>
+    </div>
+  </div>
+  <div class="badges-section">
+    <div class="badges-title">🏅 Mes badges</div>
+    <div class="badges-row" id="badges-row"></div>
+  </div>
+</div>
+
+<div class="screen" id="screen-subject">
+  <h2 class="sr-only">Choix du domaine</h2>
+  <button class="back-btn" onclick="goBack('dashboard')">← Retour</button>
+  <h2 style="font-size:28px;font-weight:800;width:100%" id="subject-title">Mathématiques</h2>
+  <div class="domain-grid" id="domain-grid"></div>
+</div>
+
+<div class="screen" id="screen-exercise">
+  <h2 class="sr-only">Exercice en cours</h2>
+  <div class="exercise-header">
+    <div class="exercise-meta"><strong id="ex-subject">Mathématiques</strong> · <span id="ex-domain">Nombres</span></div>
+    <div class="question-counter" id="question-counter"></div>
+  </div>
+  <div class="question-card" id="question-card">
+    <div class="question-top">
+      <span class="question-tag" id="q-tag">Question 1</span>
+      <button class="speak-btn" onclick="speakQuestion()" title="Lire à voix haute">🔊</button>
+    </div>
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+      <button class="hint-btn" id="hint-btn" onclick="showHint()">💡 Indice</button>
+      <div class="attempt-indicator" id="attempt-indicator">
+        <span>Essais :</span>
+        <div class="attempt-dot" id="dot-1"></div>
+        <div class="attempt-dot" id="dot-2"></div>
+      </div>
+    </div>
+    <div class="hint-box" id="hint-box"></div>
+    <div class="question-text" id="question-text"></div>
+    <div class="question-context" id="question-context"></div>
+    <div id="answer-area"></div>
+    <button class="validate-btn" id="validate-btn" onclick="validateAnswer()" disabled>Valider ma réponse ✓</button>
+  </div>
+  <div class="feedback-box" id="feedback-box">
+    <div style="font-size:48px" id="feedback-emoji">🎉</div>
+    <div class="feedback-title" id="feedback-title">Bravo !</div>
+    <div class="feedback-text" id="feedback-text"></div>
+    <div class="feedback-explanation" id="feedback-explanation" style="display:none"></div>
+    <button class="next-btn" id="next-btn">Question suivante →</button>
+  </div>
+</div>
+
+<div class="screen" id="screen-results">
+  <h2 class="sr-only">Résultats</h2>
+  <div class="result-emoji" id="result-emoji">🎉</div>
+  <div class="result-title" id="result-title">Félicitations !</div>
+  <div class="result-score" id="result-score">8/10</div>
+  <div class="result-stats">
+    <div class="result-stat"><div class="stat-num" id="res-correct">0</div><div class="stat-label">Bonnes réponses</div></div>
+    <div class="result-stat"><div class="stat-num" id="res-wrong">0</div><div class="stat-label">À retravailler</div></div>
+    <div class="result-stat"><div class="stat-num" id="res-points">+0</div><div class="stat-label">Points gagnés</div></div>
+  </div>
+  <div id="new-badges-area" style="width:100%"></div>
+  <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center">
+    <button class="btn-primary" onclick="goBack('dashboard')">Retour au menu 🏠</button>
+    <button class="btn-secondary" onclick="replayDomain()">Rejouer ce thème 🔄</button>
+  </div>
+</div>
+
+<div class="screen" id="screen-teacher">
+  <h2 class="sr-only">Tableau de bord enseignant</h2>
+  <div class="teacher-header">
+    <div class="teacher-title">👩‍🏫 Tableau de bord enseignant</div>
+    <button class="btn-secondary" onclick="goBack('welcome')">Déconnexion</button>
+  </div>
+  <div class="stats-grid" id="teacher-stats"></div>
+  <div class="students-table">
+    <h3 style="margin-bottom:16px;font-size:20px">📋 Progression des élèves</h3>
+    <table id="students-table"><thead><tr>
+      <th>Élève</th><th>Classe</th><th>Points</th><th>Maths</th><th>Français</th><th>Éveil</th><th>Niveau</th>
+    </tr></thead><tbody id="students-tbody"></tbody></table>
+  </div>
+</div>
+
+<script>
+// =====================================================
+// CONFIGURATION
+// =====================================================
+const SUPABASE_URL='https://hktcdamvnmdboipypwle.supabase.co';
+const SUPABASE_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhrdGNkYW12bm1kYm9pcHlwd2xlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYzNTMxOTksImV4cCI6MjA5MTkyOTE5OX0.7VMrUE9IHGqtkKTDxoN0lRaHJ7swHCGWxDxKWwxTWQg';
+const TEACHER_CODE='CEB2025';
+const NB_QUESTIONS_PAR_SESSION=6;
+
+// =====================================================
+// BANQUE DE QUESTIONS (enrichie)
+// =====================================================
+const QUESTIONS={
+  mathematiques:{
+    nombres_operations:{
+      label:'Nombres et opérations',icon:'🔢',color:'#4A90D9',
+      questions:[
+        {id:'m01',type:'qcm',text:'Quel est le résultat de 347 × 8 ?',hint:'Multiplie chiffre par chiffre en commençant par les unités. 7×8=56, retiens 5...',options:['2 776','2 736','2 856','2 916'],correct:0,explanation:'347 × 8 : 7×8=56 (écris 6, retiens 5) ; 4×8=32+5=37 (écris 7, retiens 3) ; 3×8=24+3=27. Résultat : 2 776.'},
+        {id:'m02',type:'qcm',text:'Un livre coûte 8,50 €. Tom en achète 6. Combien paie-t-il en tout ?',hint:'Multiplie le prix par le nombre de livres.',options:['48,00 €','51,00 €','54,00 €','46,50 €'],correct:1,explanation:'6 × 8,50 = 6 × 8 + 6 × 0,50 = 48 + 3 = 51,00 €.'},
+        {id:'m03',type:'qcm',text:'Classe ces nombres du plus petit au plus grand : 3/4 ; 0,6 ; 7/10 ; 0,72',hint:'Convertis tout en décimaux : 3/4=0,75 ; 7/10=0,70...',options:['0,6 < 7/10 < 0,72 < 3/4','0,6 < 0,72 < 7/10 < 3/4','7/10 < 0,6 < 0,72 < 3/4','0,6 < 7/10 < 3/4 < 0,72'],correct:0,explanation:'3/4=0,75 ; 7/10=0,70. En ordre : 0,60 < 0,70 < 0,72 < 0,75. Soit : 0,6 < 7/10 < 0,72 < 3/4.'},
+        {id:'m04',type:'fill',text:'Complète : 3/4 = ___/12 = 0,___',blanks:['9','75'],hint:'Pour le dénominateur 12 : 12÷4=3, donc multiplie le numérateur par 3. Pour le décimal : 3÷4=?',explanation:'3/4 : on multiplie numérateur et dénominateur par 3 → 9/12. 3÷4=0,75.'},
+        {id:'m05',type:'qcm',text:'Une pizza est coupée en 8 parts égales. Léa mange 3 parts et Marc mange 2 parts. Quelle fraction de la pizza reste-t-il ?',hint:'Additionne les parts mangées, puis soustrais de 8/8.',options:['3/8','5/8','2/8','1/2'],correct:0,explanation:'Mangé : 3+2=5 parts sur 8. Reste : 8-5=3 parts sur 8, soit 3/8.'},
+        {id:'m06',type:'qcm',text:'Quel est le plus grand commun diviseur (PGCD) de 24 et 36 ?',hint:'Liste les diviseurs de chaque nombre et trouve le plus grand qu\'ils ont en commun.',options:['4','6','12','8'],correct:2,explanation:'Diviseurs de 24 : 1,2,3,4,6,8,12,24. Diviseurs de 36 : 1,2,3,4,6,9,12,18,36. Le plus grand diviseur commun est 12.'},
+        {id:'m07',type:'qcm',text:'Dans un magasin, un jouet coûte 45 €. Il est soldé à -20%. Quel est son nouveau prix ?',hint:'20% de 45 = ? Soustrais cette réduction du prix initial.',options:['25 €','36 €','40 €','9 €'],correct:1,explanation:'20% de 45 = 45 × 20/100 = 45 × 0,2 = 9 €. Prix soldé = 45 - 9 = 36 €.'},
+        {id:'m08',type:'qcm',text:'Quel nombre est égal à 2³ + 4² ?',hint:'2³ = 2×2×2. 4² = 4×4.',options:['14','22','24','18'],correct:2,explanation:'2³ = 2×2×2 = 8. 4² = 4×4 = 16. 8 + 16 = 24.'},
+        {id:'m09',type:'fill',text:'Si 1 euro = 1,08 dollar, combien vaut 50 euros ? ___ dollars.',blanks:['54'],hint:'Multiplie 50 par 1,08.',explanation:'50 × 1,08 = 54 dollars.'},
+        {id:'m10',type:'qcm',text:'Une voiture roule à 90 km/h. En 2h30min, quelle distance parcourt-elle ?',hint:'Convertis 2h30min en heures décimales, puis multiplie par la vitesse.',options:['180 km','225 km','200 km','270 km'],correct:1,explanation:'2h30min = 2,5h. Distance = vitesse × temps = 90 × 2,5 = 225 km.'},
+        {id:'m11',type:'qcm',text:'Complète la suite : 2, 6, 18, 54, ___',hint:'Observe le rapport entre chaque terme. Multiplies-tu ou divises-tu ?',options:['108','162','72','200'],correct:1,explanation:'On multiplie chaque terme par 3 : 2×3=6, 6×3=18, 18×3=54, 54×3=162.'},
+        {id:'m12',type:'qcm',text:'Une classe compte 28 élèves. 3/4 d\'entre eux ont un animal de compagnie. Combien d\'élèves ont un animal ?',hint:'Calcule 1/4 de 28 d\'abord, puis multiplie par 3.',options:['21','24','18','14'],correct:0,explanation:'1/4 de 28 = 7. Donc 3/4 = 3×7 = 21 élèves.'},
+        {id:'m13',type:'qcm',text:'Quel est le résultat de 1 004 - 387 ?',hint:'Utilise la technique de la soustraction avec retenues, ou calcule par compléments.',options:['617','627','607','617'],correct:0,explanation:'1004 - 387 : on calcule 1004 - 400 = 604, puis +13 = 617.'},
+        {id:'m14',type:'fill',text:'Écris en chiffres : "deux millions trois cent mille quatre-vingt-sept" → ___',blanks:['2300087'],hint:'2 millions = 2 000 000 ; 300 000 ; puis 87.',explanation:'2 000 000 + 300 000 + 87 = 2 300 087.'}
+      ]
+    },
+    solides_figures:{
+      label:'Solides et figures',icon:'📐',color:'#9B6FD4',
+      questions:[
+        {id:'s01',type:'qcm',text:'Un rectangle a une longueur de 12 cm et une largeur de 8 cm. Quelle est son aire ?',hint:'Aire d\'un rectangle = longueur × largeur.',options:['20 cm²','96 cm²','40 cm²','84 cm²'],correct:1,explanation:'Aire = longueur × largeur = 12 × 8 = 96 cm².'},
+        {id:'s02',type:'qcm',text:'Combien de faces, d\'arêtes et de sommets possède un cube ?',hint:'Compte les faces (côtés plats), les arêtes (bords), et les coins.',options:['6 faces, 12 arêtes, 8 sommets','4 faces, 8 arêtes, 6 sommets','6 faces, 8 arêtes, 12 sommets','8 faces, 12 arêtes, 6 sommets'],correct:0,explanation:'Un cube : 6 faces carrées, 12 arêtes, 8 sommets. Mémo : 6-12-8 !'},
+        {id:'s03',type:'qcm',text:'Le périmètre d\'un carré est de 28 cm. Quelle est la longueur d\'un côté ?',hint:'Périmètre d\'un carré = 4 × côté.',options:['4 cm','8 cm','7 cm','14 cm'],correct:2,explanation:'Côté = périmètre ÷ 4 = 28 ÷ 4 = 7 cm.'},
+        {id:'s04',type:'qcm',text:'Quel est le volume d\'un cube dont le côté mesure 4 cm ?',hint:'Volume d\'un cube = côté × côté × côté.',options:['12 cm³','16 cm³','64 cm³','48 cm³'],correct:2,explanation:'Volume = 4 × 4 × 4 = 64 cm³.'},
+        {id:'s05',type:'qcm',text:'Dans quel solide tous les points de la surface sont-ils à égale distance du centre ?',hint:'C\'est un solide sans face plane...',options:['Cube','Cône','Pyramide','Sphère'],correct:3,explanation:'La sphère : tous ses points sont à la même distance du centre, appelée le rayon.'},
+        {id:'s06',type:'qcm',text:'Un triangle équilatéral a un périmètre de 36 cm. Quelle est la longueur d\'un côté ?',hint:'Un triangle équilatéral a 3 côtés égaux.',options:['6 cm','9 cm','12 cm','18 cm'],correct:2,explanation:'Périmètre = 3 × côté → côté = 36 ÷ 3 = 12 cm.'},
+        {id:'s07',type:'qcm',text:'Une pièce rectangulaire mesure 5 m de long et 4 m de large. Quelle longueur de plinthe faut-il pour en faire le tour ?',hint:'Le tour = périmètre du rectangle.',options:['20 m','18 m','9 m','40 m'],correct:1,explanation:'Périmètre = 2 × (longueur + largeur) = 2 × (5+4) = 2 × 9 = 18 m.'},
+        {id:'s08',type:'qcm',text:'Parmi ces formes, laquelle N\'EST PAS un quadrilatère ?',hint:'Un quadrilatère a exactement 4 côtés.',options:['Trapèze','Losange','Pentagone','Parallélogramme'],correct:2,explanation:'Un pentagone a 5 côtés. Un quadrilatère a exactement 4 côtés. Le trapèze, le losange et le parallélogramme sont bien des quadrilatères.'},
+        {id:'s09',type:'qcm',text:'Quelle est l\'aire d\'un triangle dont la base est de 10 cm et la hauteur de 6 cm ?',hint:'Aire d\'un triangle = (base × hauteur) ÷ 2.',options:['60 cm²','16 cm²','30 cm²','120 cm²'],correct:2,explanation:'Aire = (base × hauteur) ÷ 2 = (10 × 6) ÷ 2 = 60 ÷ 2 = 30 cm².'},
+        {id:'s10',type:'qcm',text:'Un prisme droit à base rectangulaire est aussi appelé...',hint:'C\'est la forme d\'une boîte de céréales.',options:['Pyramide','Parallélépipède rectangle','Cylindre','Tétraèdre'],correct:1,explanation:'Un parallélépipède rectangle (aussi appelé "pavé droit") est un prisme à base rectangulaire. C\'est la forme d\'une brique ou d\'une boîte.'}
+      ]
+    },
+    grandeurs_donnees:{
+      label:'Grandeurs et données',icon:'📊',color:'#52C97B',
+      questions:[
+        {id:'g01',type:'qcm',text:'Un train part à 14h35 et arrive à 17h10. Combien de temps dure le trajet ?',hint:'Calcule de 14h35 à 15h00 (25min), puis de 15h00 à 17h10 (2h10min).',options:['2h25min','2h35min','3h25min','2h45min'],correct:1,explanation:'14h35 → 15h35 = 1h. 15h35 → 17h10 = 1h35min. Total = 2h35min.'},
+        {id:'g02',type:'qcm',text:'Les résultats d\'un test sont : 7, 8, 6, 9, 7, 10, 6, 8, 7, 7. Quelle est la moyenne ?',hint:'Additionne tous les résultats puis divise par le nombre de résultats.',options:['7','7,5','7,25','8'],correct:1,explanation:'Somme = 7+8+6+9+7+10+6+8+7+7 = 75. Moyenne = 75 ÷ 10 = 7,5.'},
+        {id:'g03',type:'qcm',text:'Convertis : 2,5 km = ___ m',hint:'1 km = 1 000 m.',options:['250 m','2 500 m','25 m','25 000 m'],correct:1,explanation:'1 km = 1 000 m. Donc 2,5 km = 2,5 × 1 000 = 2 500 m.'},
+        {id:'g04',type:'qcm',text:'Un robinet perd 3 litres d\'eau par heure. En une semaine, combien de litres perd-il ?',hint:'1 semaine = 7 jours = 168 heures.',options:['21 L','168 L','504 L','72 L'],correct:2,explanation:'7 jours × 24h = 168h. 168 × 3 = 504 litres perdus.'},
+        {id:'g05',type:'qcm',text:'Dans un graphique, les scores de 5 élèves sont : 12, 15, 9, 18, 11. Quel est le score médian ?',hint:'Classe les scores du plus petit au plus grand et trouve celui du milieu.',options:['12','15','11','13'],correct:0,explanation:'Classés : 9, 11, 12, 15, 18. Le score du milieu (3e sur 5) est 12.'},
+        {id:'g06',type:'qcm',text:'Une bouteille contient 1,5 litre. On en verse 75 cl. Combien reste-t-il ?',hint:'Convertis tout en cl : 1,5 L = 150 cl.',options:['75 cl','70 cl','80 cl','1 L'],correct:0,explanation:'1,5 L = 150 cl. 150 - 75 = 75 cl restants.'},
+        {id:'g07',type:'fill',text:'Convertis : 3h 45min = ___ minutes.',blanks:['225'],hint:'1 heure = 60 minutes. Multiplie les heures par 60, puis ajoute les minutes.',explanation:'3 × 60 = 180 minutes + 45 = 225 minutes.'},
+        {id:'g08',type:'qcm',text:'Une recette pour 4 personnes nécessite 320 g de farine. Quelle quantité faut-il pour 6 personnes ?',hint:'Trouve la quantité pour 1 personne d\'abord.',options:['480 g','400 g','600 g','240 g'],correct:0,explanation:'Pour 1 personne : 320 ÷ 4 = 80 g. Pour 6 personnes : 80 × 6 = 480 g.'}
+      ]
+    }
+  },
+  francais:{
+    lecture_informatif:{
+      label:'Lecture (texte informatif)',icon:'📰',color:'#4A90D9',
+      questions:[
+        {id:'fi01',type:'qcm',text:'Lis le texte, puis réponds.',context:'Les abeilles jouent un rôle essentiel dans notre alimentation. Elles pollinisent environ 80% des plantes à fleurs, dont beaucoup de fruits et légumes que nous mangeons. Sans elles, la production agricole mondiale chuterait de façon dramatique. Malheureusement, les abeilles sont menacées par les pesticides, la destruction de leur habitat et les maladies.',question:'D\'après le texte, pourquoi les abeilles sont-elles indispensables ?',hint:'Cherche le rôle précis des abeilles mentionné dans le premier paragraphe.',options:['Elles fabriquent du miel consommé par les humains.','Elles pollinisent la plupart des plantes dont nous mangeons les fruits.','Elles détruisent les pesticides nocifs.','Elles protègent les agriculteurs.'],correct:1,explanation:'Le texte précise que les abeilles pollinisent 80% des plantes à fleurs, incluant nos fruits et légumes. C\'est leur rôle fondamental pour notre alimentation.'},
+        {id:'fi02',type:'qcm',text:'Lis le texte suivant.',context:'Le recyclage est un geste citoyen important. En Belgique, les déchets sont triés dans différentes poubelles : la bleue pour le papier et carton, la jaune pour les PMC (plastiques, métaux et cartons à boisson), et la verte pour les déchets organiques. Le verre se dépose dans des bulles à verre. Ces matières sont ensuite transformées pour créer de nouveaux produits.',question:'Dans quelle poubelle jette-t-on une canette de soda vide ?',hint:'Cherche la poubelle qui correspond aux métaux.',options:['La poubelle bleue','La poubelle jaune','La poubelle verte','Dans une bulle à verre'],correct:1,explanation:'La poubelle jaune est pour les PMC : Plastiques, Métaux, Cartons à boisson. Une canette est un métal → poubelle jaune.'},
+        {id:'fi03',type:'qcm',text:'Lis ce texte documentaire.',context:'La Belgique est un pays fédéral composé de trois régions : la Région flamande au nord, la Région wallonne au sud, et la Région de Bruxelles-Capitale au centre. Le pays compte trois communautés linguistiques : la communauté française (ou Fédération Wallonie-Bruxelles), la communauté flamande, et la communauté germanophone. Bruxelles est la capitale du pays et abrite notamment les institutions européennes.',question:'Combien de régions compte la Belgique selon le texte ?',hint:'Compte les régions citées dans la première phrase.',options:['Deux','Trois','Quatre','Six'],correct:1,explanation:'Le texte cite trois régions : la Région flamande, la Région wallonne, et la Région de Bruxelles-Capitale.'},
+        {id:'fi04',type:'qcm',text:'Lis l\'extrait.',context:'L\'eau douce représente seulement 3% de l\'eau sur Terre. La plupart de cette eau douce (environ 69%) est prisonnière des glaciers et des calottes polaires. Les rivières, lacs et eaux souterraines accessibles ne représentent qu\'une infime partie de l\'eau de la planète. C\'est pourquoi il est vital de ne pas la gaspiller.',question:'Pourquoi est-il important d\'économiser l\'eau selon ce texte ?',hint:'Lis la dernière phrase et cherche ce qui justifie cette nécessité.',options:['Parce que l\'eau douce est très polluée.','Parce que l\'eau douce accessible est très limitée.','Parce que les glaciers fondent rapidement.','Parce que les rivières s\'assèchent en été.'],correct:1,explanation:'Le texte explique que seule une infime partie de l\'eau de la planète est accessible. La plupart est enfermée dans les glaciers. D\'où l\'importance de ne pas la gaspiller.'}
+      ]
+    },
+    lecture_narratif:{
+      label:'Lecture (texte narratif)',icon:'📚',color:'#9B6FD4',
+      questions:[
+        {id:'fn01',type:'qcm',text:'Lis l\'extrait et réponds.',context:'Léa tremblait en entrant dans la grande salle. Jamais elle n\'avait vu autant de monde. Les projecteurs l\'aveuglaient. Elle chercha des yeux ses parents dans la foule, mais ne trouva que des visages inconnus. Alors, elle prit une grande inspiration, sourit au jury, et commença à jouer. Les premières notes s\'élevèrent, hésitantes. Puis, peu à peu, la musique emplit toute la salle, et Léa oublia sa peur.',question:'Comment Léa se sent-elle au début de l\'histoire ?',hint:'Cherche les mots qui décrivent ses émotions et ses réactions physiques.',options:['Joyeuse et impatiente','Terrifiée et en colère','Nerveuse et apeurée','Calme et confiante'],correct:2,explanation:'"Tremblait", elle cherchait ses parents, projecteurs l\'aveuglant : tous ces éléments montrent qu\'elle était nerveuse et apeurée.'},
+        {id:'fn02',type:'qcm',text:'En te basant sur l\'extrait de Léa.',context:'(Rappel : Léa tremblait en entrant dans la grande salle...)',question:'Que signifie l\'expression "les projecteurs l\'aveuglaient" ?',hint:'Le verbe "aveugler" signifie empêcher de voir. Pourquoi des lumières font-elles cela ?',options:['Les lumières étaient toutes éteintes.','Les lumières très intenses l\'empêchaient de bien voir.','Elle avait volontairement fermé les yeux.','Elle ne voulait pas voir le jury.'],correct:1,explanation:'"Aveugler" = empêcher de voir. Les projecteurs de scène sont si puissants qu\'ils gênent la vision. Léa ne voyait pas la salle correctement.'},
+        {id:'fn03',type:'qcm',text:'Lis cet extrait.',context:'—Tu ne peux pas venir avec nous, dit Paul en croisant les bras. Notre club est réservé aux vrais explorateurs.\nAlex déglutit avec peine. Ses joues s\'enflammèrent. Il regarda le sol un instant, puis releva la tête.\n—D\'accord. Alors je formerai mon propre club. Et je serai meilleur que vous.',question:'Quelle est l\'attitude d\'Alex à la fin de l\'extrait ?',hint:'Lis les dernières lignes : que décide-t-il de faire ?',options:['Il accepte la décision et part tristement.','Il pleure et demande pardon.','Il réagit avec détermination et fierté.','Il supplie Paul de le laisser rejoindre le club.'],correct:2,explanation:'Alex "relève la tête" (symbole de fierté) et décide de fonder son propre club. Il réagit avec détermination face au rejet.'},
+        {id:'fn04',type:'qcm',text:'Lis ce passage.',context:'Grand-mère posait toujours ses mains sur la table avant de commencer à parler. C\'était son signal. Tout le monde se taisait alors, même le petit chien. Ce soir-là, elle croisa les doigts, ferma les yeux une seconde, et dit d\'une voix douce mais ferme : "Il y a quelque chose d\'important à vous annoncer."',question:'Quel procédé l\'auteur utilise-t-il pour créer du suspense ?',hint:'Comment l\'auteur retarde-t-il l\'annonce ? Qu\'est-ce qu\'il décrit d\'abord ?',options:['Il décrit rapidement et directement l\'annonce.','Il utilise des mots effrayants.','Il décrit un rituel et retarde l\'annonce importante.','Il fait parler tous les personnages en même temps.'],correct:2,explanation:'L\'auteur décrit d\'abord le rituel de grand-mère (mains sur la table, silence), crée de l\'attente avant de révéler qu\'une annonce importante va être faite. Ce retard crée le suspense.'}
+      ]
+    },
+    grammaire:{
+      label:'Grammaire',icon:'🔤',color:'#FF9B3D',
+      questions:[
+        {id:'gr01',type:'qcm',text:'Quelle est la fonction du groupe souligné ?\n"Les enfants jouent dans le jardin."',hint:'Pose-toi la question "jouent où ?". Peut-on déplacer ou supprimer ce groupe ?',options:['Sujet du verbe','Complément d\'objet direct (COD)','Complément circonstanciel de lieu','Attribut du sujet'],correct:2,explanation:'"Dans le jardin" indique l\'endroit où les enfants jouent. C\'est un CCL (complément circonstanciel de lieu) : on peut le déplacer ou le supprimer.'},
+        {id:'gr02',type:'qcm',text:'Dans la phrase "Le chien mange sa croquette.", quel est le COD ?',hint:'Pose la question "mange quoi ?" après le verbe.',options:['Le chien','mange','sa croquette','sa'],correct:2,explanation:'"Le chien mange QUOI ?" → "sa croquette". C\'est le complément d\'objet direct (COD).'},
+        {id:'gr03',type:'qcm',text:'Quelle est la nature du mot "rapidement" dans : "Il court rapidement." ?',hint:'Ce mot modifie le verbe "court". Quelle classe de mots modifie les verbes ?',options:['Adjectif qualificatif','Adverbe','Nom commun','Préposition'],correct:1,explanation:'"Rapidement" est un adverbe. Les adverbes modifient un verbe, un adjectif ou un autre adverbe. Il est invariable.'},
+        {id:'gr04',type:'qcm',text:'Quelle phrase contient une proposition subordonnée relative ?',hint:'Une relative commence souvent par "qui", "que", "dont", "où".',options:['Je mange parce que j\'ai faim.','Le livre que j\'ai lu est passionnant.','Je pense que tu as raison.','Quand il pleut, je reste chez moi.'],correct:1,explanation:'"que j\'ai lu" est une proposition subordonnée relative introduite par "que". Elle complète le nom "livre" (= le livre lu par moi).'},
+        {id:'gr05',type:'qcm',text:'Dans "Sophie offre des fleurs à sa mère.", quel est le COI ?',hint:'Pose la question "offre à qui ?" après le verbe et son COD.',options:['Sophie','des fleurs','à sa mère','offre'],correct:2,explanation:'"Sophie offre des fleurs À QUI ?" → "à sa mère". C\'est le complément d\'objet indirect (COI), introduit par la préposition "à".'},
+        {id:'gr06',type:'qcm',text:'Quelle est la classe grammaticale du mot "beau" dans "C\'est un beau jardin." ?',hint:'Ce mot accompagne un nom et le qualifie.',options:['Adverbe','Déterminant','Adjectif qualificatif','Verbe'],correct:2,explanation:'"Beau" est un adjectif qualificatif. Il accompagne le nom "jardin" et le qualifie. Il s\'accorde en genre et en nombre avec le nom.'},
+        {id:'gr07',type:'qcm',text:'Dans quelle phrase le sujet est-il inversé ?',hint:'Le sujet inversé se place APRÈS le verbe, souvent dans les questions ou après des mots comme "dit-il".',options:['"Les élèves travaillent bien."','"Vient-il demain ?"','"Le soleil brille ce matin."','"Elle mange une pomme."'],correct:1,explanation:'Dans "Vient-il demain ?", le sujet "il" est placé APRÈS le verbe "vient". C\'est une inversion du sujet, fréquente dans les questions.'},
+        {id:'gr08',type:'qcm',text:'Quelle est la nature du mot "mais" dans "J\'aime le football, mais je préfère la natation." ?',hint:'Ce mot relie deux propositions de sens opposé.',options:['Préposition','Pronom','Conjonction de coordination','Adverbe'],correct:2,explanation:'"Mais" est une conjonction de coordination. Elle relie deux propositions indépendantes. Les conjonctions de coordination sont : mais, ou, et, donc, or, ni, car (mémo : MAÏS).'}
+      ]
+    },
+    conjugaison:{
+      label:'Conjugaison',icon:'🖊️',color:'#52C97B',
+      questions:[
+        {id:'c01',type:'qcm',text:'Conjugue "aller" à la 3e personne du pluriel du futur simple.',hint:'Le radical du futur d\'aller est "ir-". Ajoute la terminaison -ont pour "ils".',options:['ils iront','ils allont','ils alleront','ils vont'],correct:0,explanation:'Aller au futur : ir- + terminaisons. Ils → ir + ont = iront.'},
+        {id:'c02',type:'fill',text:'Conjugue au passé composé : "Hier, nous ___ (finir) nos devoirs."',blanks:['avons fini'],hint:'Passé composé = avoir/être (présent) + participe passé. Participe de finir = fini.',explanation:'Finir → auxiliaire avoir + participe passé "fini". → nous avons fini.'},
+        {id:'c03',type:'qcm',text:'Quelle est la terminaison de la 2e personne du pluriel à l\'imparfait ?',hint:'Pensez à "vous aimiez" ou "vous faisiez".',options:['-iez','-ez','-ais','-âtes'],correct:0,explanation:'À l\'imparfait, la 2e personne du pluriel se termine par -iez : vous aimiez, vous faisiez, vous veniez...'},
+        {id:'c04',type:'qcm',text:'Identifie le temps et le mode de "que nous ayons chanté".',hint:'Ce temps utilise "avoir/être" au subjonctif présent + participe passé.',options:['Indicatif passé composé','Subjonctif présent','Subjonctif passé','Conditionnel passé'],correct:2,explanation:'"Ayons" est le subjonctif présent d\'avoir. Subjonctif présent + participe passé = subjonctif passé.'},
+        {id:'c05',type:'qcm',text:'"Il ___ midi quand le téléphone a sonné." Quel verbe convient ?',hint:'Ce verbe décrit une action qui était en cours quand une autre s\'est produite. Quel temps ?',options:['était','fut','sera','a été'],correct:0,explanation:'"Il était midi" : on utilise l\'imparfait pour une action en cours, une description ou une habitude dans le passé. Le passé composé "a sonné" décrit l\'événement soudain.'},
+        {id:'c06',type:'fill',text:'Conjugue au conditionnel présent : "Si j\'avais le temps, je ___ (voyager)."',blanks:['voyagerais'],hint:'Conditionnel présent = radical du futur + terminaisons de l\'imparfait (-ais, -ais, -ait...).',explanation:'Voyager → radical : voyager- + -ais → je voyagerais. Le conditionnel exprime une action soumise à une condition.'},
+        {id:'c07',type:'qcm',text:'Quelle phrase est au plus-que-parfait ?',hint:'Le plus-que-parfait = auxiliaire à l\'imparfait + participe passé.',options:['"Elle a mangé une pomme."','"Elle mangea une pomme."','"Elle avait mangé une pomme."','"Elle mangera une pomme."'],correct:2,explanation:'"Elle AVAIT mangé" : l\'auxiliaire "avoir" est à l\'imparfait (avait) + participe passé "mangé" = plus-que-parfait. Ce temps exprime une action passée avant une autre action passée.'},
+        {id:'c08',type:'qcm',text:'Conjugue "prendre" au subjonctif présent, 3e personne du singulier.',hint:'Subjonctif présent de prendre : que je prenne, que tu prennes, qu\'il...',options:['qu\'il prend','qu\'il prenne','qu\'il prit','qu\'il prenait'],correct:1,explanation:'"Prendre" au subjonctif présent : que je prenne, que tu prennes, qu\'il prenne, que nous prenions, que vous preniez, qu\'ils prennent.'}
+      ]
+    },
+    orthographe:{
+      label:'Orthographe',icon:'✏️',color:'#FF6B6B',
+      questions:[
+        {id:'o01',type:'qcm',text:'Quelle phrase est correctement orthographiée ?',hint:'Vérifie l\'accord du participe passé avec le sujet.',options:['Les enfants sont allés au parc.','Les enfants sont allé au parc.','Les enfants sont allées au parc.','Les enfants sont aller au parc.'],correct:0,explanation:'"Allés" avec être s\'accorde avec le sujet "les enfants" (masculin pluriel) → allés.'},
+        {id:'o02',type:'qcm',text:'Complète : "Lucas ___ blessé à ___ doigts avec ___ ciseaux."',hint:'"ces" = démonstratif. "ses" = possessif. "s\'est" = verbe (passé composé de se blesser).',options:['ces / ses / ces','ses / ces / s\'est','s\'est / ses / ces','ses / s\'est / ces'],correct:2,explanation:'"s\'est blessé" = verbe. "ses doigts" = qui lui appartiennent. "ces ciseaux" = démonstratif. → Lucas s\'est blessé à ses doigts avec ces ciseaux.'},
+        {id:'o03',type:'qcm',text:'Choisissez la bonne orthographe.',options:['"Ils ce sont promenés dans la forêt."','"Ils se sont promenés dans la forêt."','"Ils se sont promenées dans la forêt."','"Ils se sont promener dans la forêt."'],correct:1,hint:'"se" est le pronom réfléchi. L\'accord du participe passé avec "être" se fait avec le sujet "ils".',explanation:'"se sont promenés" : "se" = pronom réfléchi. Accord avec "ils" (masculin pluriel) → promenés avec -s.'},
+        {id:'o04',type:'qcm',text:'Quelle est la bonne orthographe ?',options:['"J\'ai beaucoup de travail à faire."','"J\'ai beaucoup du travail à faire."','"J\'ai beaucoup de travaux à faire."','"J\'ai beaucoup des travail à faire."'],correct:0,hint:'"Beaucoup de" est toujours suivi d\'un nom sans article. "Travail" est uncountable ici.',explanation:'"Beaucoup de" + nom sans article → "beaucoup de travail". On ne dit pas "beaucoup du" ni "beaucoup des".'},
+        {id:'o05',type:'qcm',text:'Complète : "Les filles que j\'ai ___ (voir) hier étaient contentes."',hint:'Le participe passé avec "avoir" s\'accorde avec le COD s\'il est PLACÉ AVANT le verbe.',options:['vu','vues','vue','vus'],correct:1,explanation:'"Que" est le COD du verbe "voir" et représente "les filles" (féminin pluriel). Comme le COD est placé AVANT le verbe, le participe s\'accorde → vues.'},
+        {id:'o06',type:'qcm',text:'Laquelle de ces phrases contient une erreur d\'orthographe ?',options:['"Il a fait ses devoirs.','Elle est venue ce matin.','Nous avons mangé des gâteaux.','Ils ont pris leurs manteaux.'],correct:0,hint:'Lis chaque phrase attentivement. Y a-t-il un problème d\'accord ou de conjugaison ?',explanation:'Toutes les phrases sont correctes ici. "Ses devoirs" (possessif), "venue" (accord avec elle), "gâteaux" (pluriel), "leurs manteaux" (possessif pluriel). → Aucune erreur ! Toutes sont correctes.'},
+        {id:'o07',type:'qcm',text:'Choisissez la bonne orthographe pour compléter : "Cette décision ___ prise hier."',hint:'Le sujet "décision" est féminin singulier.',options:['a été prise','a été pris','est prit','est prise'],correct:3,explanation:'"Cette décision EST PRISE" : on utilise le passé composé passif. "Prise" s\'accorde avec "décision" (féminin singulier).'},
+        {id:'o08',type:'qcm',text:'Quelle phrase utilise correctement "ou" et "où" ?',hint:'"Où" avec accent = lieu/interrogation. "Ou" sans accent = choix entre deux choses.',options:['"Tu viens ou non ?" / "Où habites-tu ?"','"Tu viens où non ?" / "Ou habites-tu ?"','"Tu viens ou non ?" / "Ou habites-tu ?"','"Tu viens où non ?" / "Où habites-tu ?"'],correct:0,explanation:'"Ou" (sans accent) = conjonction de choix (ou bien). "Où" (avec accent) = lieu ou interrogation sur le lieu. → "Tu viens OU non ?" et "OÙ habites-tu ?"'}
+      ]
+    }
+  },
+  eveil:{
+    sciences:{
+      label:'Sciences',icon:'🔬',color:'#52C97B',
+      questions:[
+        {id:'ev01',type:'qcm',text:'Dans la chaîne alimentaire, les plantes sont appelées...',hint:'Les plantes fabriquent leur nourriture grâce au soleil. Elles produisent de l\'énergie.',options:['Consommateurs','Décomposeurs','Producteurs','Prédateurs'],correct:2,explanation:'Les plantes sont des "producteurs" car elles fabriquent leurs propres nutriments via la photosynthèse (eau + CO₂ + lumière → sucres + oxygène).'},
+        {id:'ev02',type:'qcm',text:'Quel est l\'état de l\'eau à 0°C sous pression atmosphérique normale ?',hint:'0°C est le point de fusion/solidification de l\'eau.',options:['Vapeur (gazeux)','Liquide','Solide (glace)','Plasma'],correct:2,explanation:'À 0°C, l\'eau se solidifie → glace. En dessous de 0°C : solide. Entre 0°C et 100°C : liquide. Au-dessus de 100°C : vapeur.'},
+        {id:'ev03',type:'qcm',text:'Combien de planètes compte notre système solaire ?',hint:'Depuis 2006, Pluton n\'est plus considérée comme une planète.',options:['7','8','9','10'],correct:1,explanation:'Notre système solaire compte 8 planètes : Mercure, Vénus, Terre, Mars, Jupiter, Saturne, Uranus, Neptune. Pluton a été reclassée en "planète naine" en 2006.'},
+        {id:'ev04',type:'qcm',text:'Quel organe du corps humain filtre le sang et produit l\'urine ?',hint:'Cet organe se trouve dans la région lombaire, en double.',options:['Le foie','Le cœur','Les reins','Les poumons'],correct:2,explanation:'Les reins filtrent le sang et éliminent les déchets sous forme d\'urine. Ils régulent aussi la pression artérielle et la composition du sang.'},
+        {id:'ev05',type:'qcm',text:'Que produit la photosynthèse en plus des sucres ?',hint:'C\'est le gaz que nous respirons et dont les animaux ont besoin.',options:['Du dioxyde de carbone (CO₂)','De l\'azote','De l\'oxygène (O₂)','De la vapeur d\'eau'],correct:2,explanation:'La photosynthèse : CO₂ + H₂O + lumière → glucides + O₂ (oxygène). Les plantes libèrent de l\'oxygène, indispensable à la respiration des animaux.'},
+        {id:'ev06',type:'qcm',text:'Quel est le rôle principal des globules rouges dans le sang ?',hint:'Pense à ce que nous respirons et à ce dont nos cellules ont besoin.',options:['Combattre les infections','Transporter l\'oxygène','Coaguler les plaies','Produire des anticorps'],correct:1,explanation:'Les globules rouges contiennent de l\'hémoglobine qui se lie à l\'oxygène dans les poumons et le transporte vers toutes les cellules du corps.'},
+        {id:'ev07',type:'qcm',text:'Quelle énergie est produite par les panneaux solaires ?',hint:'Le soleil émet de la lumière. Les panneaux la transforment en...',options:['Énergie thermique (chaleur)','Énergie chimique','Énergie électrique','Énergie mécanique'],correct:2,explanation:'Les panneaux solaires photovoltaïques transforment la lumière du soleil en énergie électrique grâce à l\'effet photoélectrique.'},
+        {id:'ev08',type:'qcm',text:'Quel est le principal gaz responsable de l\'effet de serre ?',hint:'C\'est ce que nous expirons et que les voitures rejettent.',options:['L\'oxygène (O₂)','L\'azote (N₂)','Le dioxyde de carbone (CO₂)','L\'hélium (He)'],correct:2,explanation:'Le CO₂ (dioxyde de carbone) est le principal gaz à effet de serre d\'origine humaine. Sa concentration augmente notamment à cause de la combustion des énergies fossiles.'}
+      ]
+    },
+    histoire:{
+      label:'Histoire',icon:'🏛️',color:'#FF9B3D',
+      questions:[
+        {id:'h01',type:'qcm',text:'En quelle année la Belgique est-elle devenue indépendante ?',hint:'C\'est au début du XIXe siècle, après une révolution contre les Pays-Bas.',options:['1789','1815','1830','1848'],correct:2,explanation:'La Belgique a obtenu son indépendance le 4 octobre 1830, après la Révolution belge. Léopold Ier devint le premier roi des Belges en 1831.'},
+        {id:'h02',type:'qcm',text:'Comment appelle-t-on la période où les humains ont appris à travailler le bronze ?',hint:'C\'est après l\'âge de pierre, avant l\'âge du fer.',options:['Le Paléolithique','L\'âge du Bronze','Le Néolithique','L\'âge du Fer'],correct:1,explanation:'L\'âge du Bronze (vers 3000-800 av. J.-C.) : les humains maîtrisent le bronze (alliage de cuivre et d\'étain), permettant de fabriquer des outils et armes plus résistants.'},
+        {id:'h03',type:'qcm',text:'Qui était Napoléon Bonaparte ?',hint:'Il a dirigé la France au début du XIXe siècle.',options:['Un roi de France','Un explorateur portugais','Un général devenu Empereur des Français','Un philosophe des Lumières'],correct:2,explanation:'Napoléon Bonaparte (1769-1821) était un général français devenu Premier consul puis Empereur des Français (1804-1815). Il a réformé profondément le droit avec le Code civil.'},
+        {id:'h04',type:'qcm',text:'Quelle invention a marqué le début de la Révolution industrielle au XVIIIe siècle ?',hint:'Cette machine utilisait la vapeur d\'eau pour produire de l\'énergie mécanique.',options:['L\'imprimerie','La machine à vapeur','L\'électricité','L\'automobile'],correct:1,explanation:'La machine à vapeur (perfectionnée par James Watt vers 1769) a transformé l\'industrie en permettant de mécaniser la production. Elle a lancé la Révolution industrielle en Grande-Bretagne.'},
+        {id:'h05',type:'qcm',text:'Quelle était la principale caractéristique de la société féodale au Moyen Âge ?',hint:'Pense à la relation entre seigneurs et vassaux, à la hiérarchie sociale.',options:['L\'égalité entre tous les citoyens','Une organisation pyramidale basée sur des liens de vassalité','La démocratie et le vote','Le commerce international'],correct:1,explanation:'La société féodale était organisée en pyramide : le roi au sommet, puis les grands seigneurs, les chevaliers, et enfin les paysans (serfs). Les vassaux devaient service et fidélité à leur seigneur en échange de protection et de terres.'},
+        {id:'h06',type:'qcm',text:'Qu\'est-ce que la Seconde Guerre mondiale (1939-1945) ?',hint:'C\'est le conflit le plus meurtrier de l\'histoire.',options:['Une guerre entre la France et l\'Angleterre','Un conflit mondial impliquant notamment l\'Allemagne nazie contre les Alliés','Une guerre civile en Europe','Un conflit entre la Belgique et les Pays-Bas'],correct:1,explanation:'La Seconde Guerre mondiale (1939-1945) opposa les pays de l\'Axe (Allemagne nazie, Italie, Japon) aux Alliés (France, Royaume-Uni, URSS, USA...). Elle causa environ 70 millions de morts, incluant la Shoah.'}
+      ]
+    },
+    geographie:{
+      label:'Géographie',icon:'🗺️',color:'#4A90D9',
+      questions:[
+        {id:'geo01',type:'qcm',text:'Quelle est la capitale de la Région wallonne ?',hint:'C\'est une ville au confluent de la Meuse et de la Sambre.',options:['Liège','Charleroi','Namur','Mons'],correct:2,explanation:'Namur est le chef-lieu de la Région wallonne depuis 1986. Elle est située au confluent de la Meuse et de la Sambre.'},
+        {id:'geo02',type:'qcm',text:'Quel fleuve traverse notamment Gand et se jette dans la mer du Nord ?',hint:'Ce fleuve a sa source en France et traverse la Belgique d\'est en ouest.',options:['La Meuse','La Moselle','L\'Escaut','Le Rhin'],correct:2,explanation:'L\'Escaut (Schelde) prend sa source en France, traverse la Belgique (Tournai, Gand) et rejoint la mer du Nord aux Pays-Bas.'},
+        {id:'geo03',type:'qcm',text:'Sur quel continent se trouve l\'Égypte ?',hint:'Ce continent est au nord du continent équatorial.',options:['Asie','Afrique','Europe','Moyen-Orient'],correct:1,explanation:'L\'Égypte est un pays d\'Afrique du Nord. Elle est souvent associée au Moyen-Orient culturellement, mais géographiquement elle appartient au continent africain.'},
+        {id:'geo04',type:'qcm',text:'Quelle est la plus haute montagne du monde ?',hint:'Elle se trouve dans la chaîne de l\'Himalaya entre le Népal et la Chine.',options:['Le Mont Blanc','Le Kilimandjaro','L\'Everest','L\'Aconcagua'],correct:2,explanation:'L\'Everest culmine à 8 848,86 m d\'altitude (mesure de 2020). Il se trouve dans l\'Himalaya, à la frontière entre le Népal et le Tibet (Chine).'},
+        {id:'geo05',type:'qcm',text:'Comment appelle-t-on les lignes imaginaires horizontales qui font le tour de la Terre ?',hint:'Ces lignes sont parallèles à l\'équateur.',options:['Les méridiens','Les longitudes','Les parallèles (ou latitudes)','Les tropiques'],correct:2,explanation:'Les parallèles (ou lignes de latitude) sont des lignes imaginaires horizontales qui font le tour de la Terre. L\'équateur (0°) est le parallèle de référence.'},
+        {id:'geo06',type:'qcm',text:'Quelle est la capitale de l\'Australie ?',hint:'Ce n\'est ni Sydney ni Melbourne, les deux plus grandes villes !',options:['Sydney','Melbourne','Canberra','Brisbane'],correct:2,explanation:'Canberra est la capitale de l\'Australie depuis 1913. Elle a été construite spécialement pour servir de capitale, pour éviter de choisir entre Sydney et Melbourne qui se disputaient ce rôle.'},
+        {id:'geo07',type:'qcm',text:'Quel est le plus grand océan du monde ?',hint:'Il borde la côte ouest des Amériques et la côte est de l\'Asie.',options:['L\'océan Atlantique','L\'océan Indien','L\'océan Arctique','L\'océan Pacifique'],correct:3,explanation:'L\'océan Pacifique est le plus grand et le plus profond des océans. Il couvre environ 165 millions de km², soit plus que toutes les terres émergées réunies.'}
+      ]
+    }
+  }
+};
+
+// =====================================================
+// ÉTAT DE L'APPLICATION
+// =====================================================
+let state={
+  eleve:null,eleveId:null,points:0,stars:0,
+  currentSubject:null,currentDomain:null,
+  questions:[],currentQIndex:0,
+  sessionAnswers:[],sessionId:null,
+  attemptCount:0,hintUsed:false,
+  progression:{mathematiques:{},francais:{},eveil:{}},
+  earnedBadges:[],dragState:{},
+  sessionPointsEarned:0
+};
+
+// =====================================================
+// SUPABASE
+// =====================================================
+async function sbFetch(path,opts={}){
+  try{
+    const r=await fetch(SUPABASE_URL+'/rest/v1/'+path,{
+      headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY,'Content-Type':'application/json','Prefer':'return=representation',...(opts.headers||{})},
+      ...opts
+    });
+    if(!r.ok)return null;
+    return await r.json();
+  }catch(e){return null;}
+}
+
+// =====================================================
+// NAVIGATION
+// =====================================================
+function showScreen(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById('screen-'+id).classList.add('active');
+  window.scrollTo(0,0);
+}
+function goBack(to){showScreen(to);}
+
+// =====================================================
+// ACCUEIL
+// =====================================================
+async function startApp(){
+  const prenom=document.getElementById('input-prenom').value.trim();
+  const nom=document.getElementById('input-nom').value.trim();
+  const classe=document.getElementById('input-classe').value.trim();
+  if(!prenom||!nom){alert('Merci d\'entrer ton prénom et ton nom ! 😊');return;}
+  let eleveData=await sbFetch(`eleves?prenom=eq.${encodeURIComponent(prenom)}&nom=eq.${encodeURIComponent(nom)}&select=*`);
+  let eleve;
+  if(eleveData&&eleveData.length>0){
+    eleve=eleveData[0];
+    await sbFetch(`eleves?id=eq.${eleve.id}`,{method:'PATCH',body:JSON.stringify({derniere_connexion:new Date().toISOString()})});
+  }else{
+    const res=await sbFetch('eleves',{method:'POST',body:JSON.stringify({prenom,nom,classe:classe||'6e'})});
+    eleve=res&&res.length>0?res[0]:{id:crypto.randomUUID(),prenom,nom,classe:classe||'6e'};
+    await sbFetch('points',{method:'POST',body:JSON.stringify({eleve_id:eleve.id,total_points:0,total_etoiles:0})});
+  }
+  state.eleve=eleve;state.eleveId=eleve.id;
+  const pts=await sbFetch(`points?eleve_id=eq.${eleve.id}&select=*`);
+  if(pts&&pts.length>0){state.points=pts[0].total_points||0;state.stars=pts[0].total_etoiles||0;}
+  const bdgs=await sbFetch(`badges?eleve_id=eq.${eleve.id}&select=*`);
+  if(bdgs)state.earnedBadges=bdgs.map(b=>b.badge_code);
+  const prog=await sbFetch(`progression?eleve_id=eq.${eleve.id}&select=*`);
+  if(prog)prog.forEach(p=>{if(!state.progression[p.matiere])state.progression[p.matiere]={};state.progression[p.matiere][p.sous_domaine]=p;});
+  updateDashboard();
+  showScreen('dashboard');
+}
+
+function updateDashboard(){
+  const e=state.eleve;
+  document.getElementById('user-avatar').textContent=(e.prenom[0]+e.nom[0]).toUpperCase();
+  document.getElementById('user-display-name').textContent=e.prenom+' '+e.nom;
+  document.getElementById('user-display-class').textContent=e.classe||'6e primaire';
+  document.getElementById('total-points').textContent=state.points;
+  document.getElementById('total-stars').textContent=state.stars;
+  ['mathematiques','francais','eveil'].forEach((m,i)=>{
+    const ids=['math','fr','ev'];
+    const prog=state.progression[m]||{};
+    const keys=Object.keys(prog);
+    let avg=keys.length>0?keys.reduce((s,k)=>s+(prog[k].score_moyen||0),0)/keys.length:0;
+    document.getElementById('prog-'+ids[i]).style.width=Math.round(avg)+'%';
+    document.getElementById('prog-'+ids[i]+'-label').textContent=Math.round(avg)+'% réussi';
+  });
+  renderBadges();
+}
+
+const BADGE_DEFS=[
+  {code:'premier_pas',emoji:'⭐',label:'Premier pas'},
+  {code:'as_maths',emoji:'🧮',label:'As des maths'},
+  {code:'grand_lecteur',emoji:'📚',label:'Grand lecteur'},
+  {code:'orthographe',emoji:'✏️',label:'Orthographe'},
+  {code:'explorateur',emoji:'🌍',label:'Explorateur'},
+  {code:'champion_ceb',emoji:'🏆',label:'Champion CEB'}
+];
+function renderBadges(){
+  document.getElementById('badges-row').innerHTML=BADGE_DEFS.map(b=>`
+    <div class="badge-item ${state.earnedBadges.includes(b.code)?'':'locked'}">
+      <span class="badge-emoji">${b.emoji}</span><span>${b.label}</span>
+    </div>`).join('');
+}
+
+// =====================================================
+// MATIÈRES & DOMAINES
+// =====================================================
+const SUBJECT_CONFIG={
+  mathematiques:{label:'Mathématiques 🔢',domains:QUESTIONS.mathematiques},
+  francais:{label:'Français 📖',domains:QUESTIONS.francais},
+  eveil:{label:'Éveil 🌍',domains:QUESTIONS.eveil}
+};
+
+function openSubject(subject){
+  state.currentSubject=subject;
+  document.getElementById('subject-title').textContent=SUBJECT_CONFIG[subject].label;
+  const grid=document.getElementById('domain-grid');
+  grid.innerHTML=Object.entries(QUESTIONS[subject]).map(([key,dom])=>{
+    const p=(state.progression[subject]&&state.progression[subject][key])||{};
+    const score=Math.round(p.score_moyen||0);
+    const bg=score>=70?'#E8F9EE':score>=40?'#FFF3E0':'#FFE5E5';
+    const tc=score>=70?'#2D9A52':score>=40?'#E07820':'#C0392B';
+    return `<div class="domain-card" onclick="startDomain('${subject}','${key}')" style="border-color:${dom.color}33">
+      <div class="domain-icon">${dom.icon}</div>
+      <div class="domain-name" style="color:${dom.color}">${dom.label}</div>
+      <span class="domain-score" style="background:${bg};color:${tc}">${score}% réussi</span>
+    </div>`;
+  }).join('');
+  showScreen('subject');
+}
+
+function startDomain(subject,domain){
+  state.currentSubject=subject;
+  state.currentDomain=domain;
+  // Sélection aléatoire sans répétition depuis la banque
+  const bank=[...QUESTIONS[subject][domain].questions];
+  const shuffled=bank.sort(()=>Math.random()-0.5);
+  state.questions=shuffled.slice(0,Math.min(NB_QUESTIONS_PAR_SESSION,bank.length));
+  state.currentQIndex=0;
+  state.sessionAnswers=[];
+  state.sessionId=crypto.randomUUID();
+  state.sessionPointsEarned=0;
+  createSession();
+  renderQuestion();
+  showScreen('exercise');
+}
+
+async function createSession(){
+  await sbFetch('sessions',{method:'POST',body:JSON.stringify({
+    id:state.sessionId,eleve_id:state.eleveId,
+    matiere:state.currentSubject,sous_domaine:state.currentDomain,
+    nb_questions:state.questions.length,niveau_difficulte:2
+  })});
+}
+
+// =====================================================
+// RENDU DE QUESTION
+// =====================================================
+function renderQuestion(){
+  const q=state.questions[state.currentQIndex];
+  if(!q){finishSession();return;}
+  state.attemptCount=0;
+  state.hintUsed=false;
+
+  // Reset UI
+  document.getElementById('hint-box').style.display='none';
+  document.getElementById('hint-box').textContent=q.hint||'';
+  document.getElementById('feedback-box').style.display='none';
+  document.getElementById('validate-btn').disabled=true;
+  document.getElementById('validate-btn').style.display='block';
+  document.getElementById('validate-btn').textContent='Valider ma réponse ✓';
+
+  // Indicateur de tentatives
+  document.getElementById('dot-1').className='attempt-dot';
+  document.getElementById('dot-2').className='attempt-dot';
+
+  // Meta
+  const subLabel=SUBJECT_CONFIG[state.currentSubject].label.replace(/[🔢📖🌍]/g,'').trim();
+  document.getElementById('ex-subject').textContent=subLabel;
+  document.getElementById('ex-domain').textContent=QUESTIONS[state.currentSubject][state.currentDomain].label;
+
+  // Dots de progression
+  const counter=document.getElementById('question-counter');
+  counter.innerHTML=state.questions.map((_,i)=>{
+    let cls=i<state.currentQIndex?'done':i===state.currentQIndex?'current':'';
+    if(i<state.currentQIndex&&state.sessionAnswers[i]&&!state.sessionAnswers[i].correct)cls='wrong';
+    return `<div class="q-dot ${cls}"></div>`;
+  }).join('');
+
+  document.getElementById('q-tag').textContent='Question '+(state.currentQIndex+1)+'/'+state.questions.length;
+
+  // Texte et contexte
+  document.getElementById('question-text').textContent=q.question||q.text||'';
+  const ctxEl=document.getElementById('question-context');
+  if(q.context){ctxEl.textContent=q.context;ctxEl.style.display='block';}
+  else ctxEl.style.display='none';
+
+  renderAnswerArea(q);
+}
+
+function renderAnswerArea(q){
+  const area=document.getElementById('answer-area');
+  if(q.type==='qcm'){
+    const opts=q.options;
+    area.innerHTML=`<div class="options-grid">${opts.map((o,i)=>`
+      <button class="option-btn" onclick="selectOption(this,${i})" data-index="${i}">
+        <span class="option-letter">${['A','B','C','D'][i]}</span>${o}
+      </button>`).join('')}</div>`;
+  }else if(q.type==='fill'){
+    area.innerHTML=`<div class="fill-text">${buildFillHTML(q)}</div>`;
+    document.querySelectorAll('.blank-input').forEach((inp,i)=>{
+      inp.addEventListener('input',checkFillInput);
+    });
+  }else if(q.type==='drag'){
+    renderDrag(q);
+  }
+}
+
+function buildFillHTML(q){
+  // Affiche le texte avec des champs à remplir
+  let parts=q.text.split(/___/g);
+  let html='';
+  parts.forEach((part,i)=>{
+    html+=part;
+    if(i<parts.length-1){
+      html+=`<input class="blank-input" id="blank-${i}" placeholder="..." autocomplete="off" />`;
+    }
+  });
+  return html;
+}
+
+function selectOption(btn,idx){
+  document.querySelectorAll('.option-btn').forEach(b=>b.classList.remove('selected'));
+  btn.classList.add('selected');
+  document.getElementById('validate-btn').disabled=false;
+}
+
+function checkFillInput(){
+  const blanks=document.querySelectorAll('.blank-input');
+  document.getElementById('validate-btn').disabled=!Array.from(blanks).every(b=>b.value.trim()!=='');
+}
+
+function renderDrag(q){
+  // Utilise la structure items/zones de la question
+  const items=q.items||[];
+  const zones=q.zones||[];
+  state.dragState={};
+  let html=`<div class="drag-container">
+    <p style="font-size:15px;color:var(--text-muted);margin-bottom:10px">Fais glisser chaque mot dans la bonne case :</p>
+    <div class="drag-items" id="drag-items-pool">`;
+  items.forEach(item=>{
+    html+=`<div class="drag-item" draggable="true" data-word="${item}" ondragstart="dragStart(event)">${item}</div>`;
+  });
+  html+=`</div><div class="drop-zones">`;
+  zones.forEach((z,i)=>{
+    const label=typeof z==='object'?z.label:z;
+    html+=`<div class="drop-zone" id="zone-${i}" data-zone="${i}" ondragover="dragOver(event)" ondrop="dropItem(event,${i})">
+      <span class="drop-label">${label} :</span>
+      <span id="zone-val-${i}" style="color:var(--text-muted);font-size:14px;flex:1"></span>
+    </div>`;
+  });
+  html+=`</div></div>`;
+  document.getElementById('answer-area').innerHTML=html;
+  document.getElementById('validate-btn').disabled=true;
+}
+
+function dragStart(e){e.dataTransfer.setData('text',e.target.dataset.word);}
+function dragOver(e){e.preventDefault();e.currentTarget.classList.add('dragover');}
+function dropItem(e,zi){
+  e.preventDefault();
+  e.currentTarget.classList.remove('dragover');
+  const word=e.dataTransfer.getData('text');
+  // Si zone déjà occupée, remettre l'ancien mot dans la liste
+  if(state.dragState[zi]){
+    const old=state.dragState[zi];
+    document.querySelectorAll('.drag-item').forEach(d=>{if(d.dataset.word===old)d.classList.remove('used');});
+  }
+  state.dragState[zi]=word;
+  document.getElementById('zone-val-'+zi).innerHTML=`<span class="dropped-item" onclick="removeFromZone(${zi})">${word} ✕</span>`;
+  document.querySelectorAll('.drag-item').forEach(d=>{if(d.dataset.word===word)d.classList.add('used');});
+  const q=state.questions[state.currentQIndex];
+  const total=q.zones?q.zones.length:0;
+  document.getElementById('validate-btn').disabled=Object.keys(state.dragState).length<total;
+}
+function removeFromZone(zi){
+  const word=state.dragState[zi];
+  if(!word)return;
+  delete state.dragState[zi];
+  document.getElementById('zone-val-'+zi).innerHTML='';
+  document.querySelectorAll('.drag-item').forEach(d=>{if(d.dataset.word===word)d.classList.remove('used');});
+  document.getElementById('validate-btn').disabled=true;
+}
+
+function showHint(){
+  state.hintUsed=true;
+  const hb=document.getElementById('hint-box');
+  hb.style.display=hb.style.display==='block'?'none':'block';
+}
+
+function speakQuestion(){
+  const q=state.questions[state.currentQIndex];
+  const text=[q.question||q.text||'',q.context||''].filter(Boolean).join('. ');
+  if('speechSynthesis' in window){
+    window.speechSynthesis.cancel();
+    const utt=new SpeechSynthesisUtterance(text);
+    utt.lang='fr-FR';utt.rate=0.85;
+    document.getElementById('tts-indicator').style.display='block';
+    utt.onend=()=>{document.getElementById('tts-indicator').style.display='none';};
+    window.speechSynthesis.speak(utt);
+  }
+}
+
+// =====================================================
+// VALIDATION — CŒUR DE LA LOGIQUE
+// =====================================================
+function validateAnswer(){
+  const q=state.questions[state.currentQIndex];
+  state.attemptCount++;
+  document.getElementById('dot-'+state.attemptCount).classList.add('used');
+
+  let isCorrect=false;
+  let userAnswer='';
+
+  // ---- Évaluation de la réponse ----
+  if(q.type==='qcm'){
+    const sel=document.querySelector('.option-btn.selected');
+    if(!sel)return;
+    const idx=parseInt(sel.dataset.index);
+    isCorrect=idx===q.correct;
+    userAnswer=q.options[idx];
+
+    if(isCorrect){
+      // Montrer uniquement la bonne réponse cochée
+      document.querySelectorAll('.option-btn').forEach(b=>b.onclick=null);
+      sel.classList.add('correct');
+      sel.classList.remove('selected');
+    }else if(state.attemptCount<2){
+      // 1er essai raté : on marque l'erreur mais PAS la bonne réponse
+      document.querySelectorAll('.option-btn').forEach(b=>{b.onclick=null;});
+      sel.classList.add('wrong-sel');
+      sel.classList.remove('selected');
+      // On réactive les autres options pour le 2e essai (sauf celle choisie)
+      document.querySelectorAll('.option-btn:not(.wrong-sel)').forEach((b,_)=>{
+        b.onclick=()=>selectOption(b,parseInt(b.dataset.index));
+      });
+      document.getElementById('validate-btn').disabled=true;
+      showFeedback('retry',null);
+      return;
+    }else{
+      // 2e essai raté : on montre tout
+      document.querySelectorAll('.option-btn').forEach((b,i)=>{
+        b.onclick=null;
+        if(i===q.correct)b.classList.add('correct');
+        else if(b.classList.contains('selected')||b.classList.contains('wrong-sel'))b.classList.add('wrong-sel');
+      });
+    }
+  }else if(q.type==='fill'){
+    const inputs=document.querySelectorAll('.blank-input');
+    let allOk=true;
+    inputs.forEach((inp,i)=>{
+      const val=inp.value.trim().toLowerCase().replace(/\s+/g,'');
+      const exp=(q.blanks[i]||'').toLowerCase().replace(/\s+/g,'');
+      if(val===exp){inp.classList.add('correct');inp.readOnly=true;}
+      else{inp.classList.add('wrong');allOk=false;}
+    });
+    isCorrect=allOk;
+    if(!isCorrect&&state.attemptCount<2){
+      // Reset les champs incorrects pour le 2e essai (sans montrer les bonnes réponses)
+      inputs.forEach(inp=>{
+        if(inp.classList.contains('wrong')){
+          inp.classList.remove('wrong');
+          inp.value='';
+          inp.readOnly=false;
+        }
+      });
+      document.getElementById('validate-btn').disabled=true;
+      showFeedback('retry',null);
+      return;
+    }
+    // 2e essai ou correct : on révèle les bonnes réponses pour les champs erronés
+    if(!isCorrect){
+      inputs.forEach((inp,i)=>{
+        if(!inp.classList.contains('correct')){
+          inp.value=q.blanks[i];
+          inp.classList.add('correct');
+          inp.readOnly=true;
+        }
+      });
+    }
+    userAnswer=Array.from(inputs).map(i=>i.value).join(', ');
+  }else if(q.type==='drag'){
+    const zones=q.zones||[];
+    let allOk=true;
+    zones.forEach((z,i)=>{
+      const given=state.dragState[i];
+      const expected=typeof z==='object'?z.answer:q.answers[i];
+      if(given===expected){document.getElementById('zone-'+i).classList.add('correct');}
+      else{document.getElementById('zone-'+i).classList.add('wrong');allOk=false;}
+    });
+    isCorrect=allOk;
+    if(!isCorrect&&state.attemptCount<2){
+      // Reset les zones incorrectes
+      zones.forEach((_,i)=>{
+        const zEl=document.getElementById('zone-'+i);
+        if(zEl.classList.contains('wrong')){
+          const word=state.dragState[i];
+          delete state.dragState[i];
+          document.getElementById('zone-val-'+i).innerHTML='';
+          document.querySelectorAll('.drag-item').forEach(d=>{if(d.dataset.word===word)d.classList.remove('used');});
+          zEl.classList.remove('wrong');
+        }
+      });
+      document.getElementById('validate-btn').disabled=true;
+      showFeedback('retry',null);
+      return;
+    }
+    userAnswer=JSON.stringify(state.dragState);
+  }
+
+  // ---- Finalisation ----
+  document.getElementById('validate-btn').style.display='none';
+  const pts=isCorrect?(state.hintUsed?5:10):0;
+  state.sessionAnswers.push({qid:q.id,correct:isCorrect,hintUsed:state.hintUsed});
+  if(isCorrect){state.points+=pts;state.stars+=1;state.sessionPointsEarned+=pts;}
+  saveAnswer(q.id,userAnswer,isCorrect);
+  showFeedback(isCorrect?'success':'error',q.explanation);
+}
+
+// =====================================================
+// FEEDBACK
+// =====================================================
+function showFeedback(type,explanation){
+  const box=document.getElementById('feedback-box');
+  box.className='feedback-box '+type;
+
+  const MSGS={
+    success:[
+      ['🎉','Super ! Bravo !','C\'est exactement la bonne réponse ! Tu maîtrises très bien ce sujet. Continue comme ça !'],
+      ['⭐','Excellent !','Parfait ! Tu as tout bon. Tes efforts paient vraiment !'],
+      ['🌟','Magnifique !','Waouw ! C\'est une réponse parfaite. Tu es vraiment doué(e) !'],
+      ['🏆','Champion(ne) !','Tu es au top ! Cette question n\'avait aucun secret pour toi.'],
+      ['🎯','Dans le mille !','Quelle précision ! Tu as trouvé la bonne réponse du premier coup !']
+    ],
+    retry:[
+      ['🤔','Pas tout à fait...','Ce n\'est pas la bonne réponse. Relis bien la question et l\'indice — tu peux y arriver au 2e essai !'],
+      ['💭','Réfléchis encore...','Hmm, ce n\'est pas ça. Prends le temps de relire la question. Tu as encore une chance !'],
+      ['🔍','Cherche encore...','Presque ! Examine bien chaque réponse. Il t\'en reste une tentative !']
+    ],
+    error:[
+      ['💪','Pas encore, mais tu progresses !','Ce n\'est pas la bonne réponse cette fois. Lis bien l\'explication pour mieux comprendre.'],
+      ['🌱','Continue d\'essayer !','Tu n\'as pas encore la bonne réponse, mais c\'est en faisant des erreurs qu\'on apprend le mieux !'],
+      ['📖','À retenir !','La prochaine fois, tu t\'en souviendras. Lis bien l\'explication ci-dessous.']
+    ]
+  };
+
+  const pool=MSGS[type];
+  const [emoji,title,text]=pool[Math.floor(Math.random()*pool.length)];
+  document.getElementById('feedback-emoji').textContent=emoji;
+  document.getElementById('feedback-title').textContent=title;
+  document.getElementById('feedback-text').textContent=text;
+
+  const expEl=document.getElementById('feedback-explanation');
+  if(type!=='retry'&&explanation){
+    expEl.textContent='💡 Explication : '+explanation;
+    expEl.className='feedback-explanation '+(type==='success'?'good':'bad');
+    expEl.style.display='block';
+  }else expEl.style.display='none';
+
+  const nextBtn=document.getElementById('next-btn');
+  if(type==='retry'){
+    nextBtn.textContent='Je réessaie ↩';
+    nextBtn.onclick=resumeAfterRetry;
+  }else{
+    const isLast=state.currentQIndex>=state.questions.length-1;
+    nextBtn.textContent=isLast?'Voir mes résultats 🏁':'Question suivante →';
+    nextBtn.onclick=nextQuestion;
+    if(type==='success')confetti();
+  }
+
+  box.style.display='block';
+  box.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
+function resumeAfterRetry(){
+  document.getElementById('feedback-box').style.display='none';
+  document.getElementById('validate-btn').style.display='block';
+  document.getElementById('validate-btn').disabled=false;
+  document.getElementById('validate-btn').textContent='Valider ma réponse ✓ (dernier essai)';
+}
+
+function nextQuestion(){
+  state.currentQIndex++;
+  if(state.currentQIndex>=state.questions.length){finishSession();return;}
+  renderQuestion();
+}
+
+async function saveAnswer(qid,answer,correct){
+  await sbFetch('reponses',{method:'POST',body:JSON.stringify({
+    session_id:state.sessionId,eleve_id:state.eleveId,
+    question_id:qid,matiere:state.currentSubject,sous_domaine:state.currentDomain,
+    reponse_eleve:answer,est_correcte:correct,
+    indice_utilise:state.hintUsed,nb_tentatives:state.attemptCount
+  })});
+}
+
+// =====================================================
+// FIN DE SESSION
+// =====================================================
+async function finishSession(){
+  const correct=state.sessionAnswers.filter(a=>a.correct).length;
+  const total=state.sessionAnswers.length;
+  const pct=total>0?Math.round((correct/total)*100):0;
+
+  await sbFetch(`sessions?id=eq.${state.sessionId}`,{method:'PATCH',body:JSON.stringify({
+    ended_at:new Date().toISOString(),nb_correct:correct,score_pourcentage:pct
+  })});
+
+  const prev=(state.progression[state.currentSubject]&&state.progression[state.currentSubject][state.currentDomain])||{};
+  const nt=(prev.nb_exercices_total||0)+total;
+  const nok=(prev.nb_reussites||0)+correct;
+  const navg=Math.round((nok/nt)*100);
+  const niv=navg>=70?3:navg>=40?2:1;
+
+  await sbFetch('progression',{method:'POST',
+    headers:{'Prefer':'resolution=merge-duplicates,return=representation'},
+    body:JSON.stringify({
+      eleve_id:state.eleveId,matiere:state.currentSubject,sous_domaine:state.currentDomain,
+      nb_exercices_total:nt,nb_reussites:nok,score_moyen:navg,
+      niveau_actuel:niv,derniere_activite:new Date().toISOString()
+    })
+  });
+  if(!state.progression[state.currentSubject])state.progression[state.currentSubject]={};
+  state.progression[state.currentSubject][state.currentDomain]={nb_exercices_total:nt,nb_reussites:nok,score_moyen:navg,niveau_actuel:niv};
+
+  await sbFetch(`points?eleve_id=eq.${state.eleveId}`,{method:'PATCH',body:JSON.stringify({total_points:state.points,total_etoiles:state.stars})});
+
+  const newBadges=[];
+  const addBadge=(code,label,emoji)=>{if(!state.earnedBadges.includes(code)){newBadges.push({code,label,emoji});state.earnedBadges.push(code);}};
+  addBadge('premier_pas','Premier pas','⭐');
+  if(state.currentSubject==='mathematiques'&&navg>=70)addBadge('as_maths','As des maths','🧮');
+  if(state.currentSubject==='francais'&&navg>=70)addBadge('grand_lecteur','Grand lecteur','📚');
+  if(state.currentSubject==='francais'&&state.currentDomain==='orthographe'&&pct===100)addBadge('orthographe','Maître orthographe','✏️');
+  if(state.currentSubject==='eveil'&&navg>=70)addBadge('explorateur','Explorateur','🌍');
+  const allHigh=Object.values(state.progression).every(s=>Object.values(s).some(d=>d.score_moyen>=70));
+  if(allHigh)addBadge('champion_ceb','Champion CEB','🏆');
+
+  for(const b of newBadges)await sbFetch('badges',{method:'POST',body:JSON.stringify({eleve_id:state.eleveId,badge_code:b.code,badge_label:b.label,badge_emoji:b.emoji})});
+
+  showResultsScreen(correct,total,pct,newBadges);
+}
+
+function showResultsScreen(correct,total,pct,newBadges){
+  const cls=pct>=70?'score-good':pct>=50?'score-mid':'score-low';
+  const emoji=pct>=70?'🎉':pct>=50?'💪':'🌱';
+  const title=pct>=70?'Fantastique ! Tu as brillé !':pct>=50?'Bien joué ! Continue !':'Tu progresses, ne lâche pas !';
+  document.getElementById('result-emoji').textContent=emoji;
+  document.getElementById('result-title').textContent=title;
+  document.getElementById('result-score').innerHTML=`<span class="${cls}">${correct}/${total}</span>`;
+  document.getElementById('res-correct').textContent=correct;
+  document.getElementById('res-wrong').textContent=total-correct;
+  document.getElementById('res-points').textContent='+'+state.sessionPointsEarned;
+  const ba=document.getElementById('new-badges-area');
+  ba.innerHTML=newBadges.length>0?`<div style="text-align:center;margin-bottom:12px;font-size:18px;font-weight:700">🏅 Nouveau badge débloqué !</div>
+    <div class="new-badges">${newBadges.map(b=>`<div class="new-badge"><div class="new-badge-emoji">${b.emoji}</div><div class="new-badge-label">${b.label}</div></div>`).join('')}</div>`:'' ;
+  if(pct>=70)confetti();
+  showScreen('results');
+  updateDashboard();
+}
+
+function replayDomain(){startDomain(state.currentSubject,state.currentDomain);}
+
+// =====================================================
+// CONFETTIS
+// =====================================================
+function confetti(){
+  const colors=['#4A90D9','#52C97B','#FF9B3D','#9B6FD4','#FFD93D','#FF6B6B'];
+  for(let i=0;i<45;i++){
+    const el=document.createElement('div');
+    el.className='confetti-piece';
+    el.style.cssText=`left:${Math.random()*100}vw;background:${colors[i%colors.length]};animation-delay:${Math.random()*1.2}s;width:${8+Math.random()*8}px;height:${8+Math.random()*8}px;`;
+    document.body.appendChild(el);
+    setTimeout(()=>el.remove(),4500);
+  }
+}
+
+// =====================================================
+// TABLEAU DE BORD ENSEIGNANT
+// =====================================================
+function openTeacherModal(){document.getElementById('modal-teacher').classList.add('visible');}
+function closeTeacherModal(){document.getElementById('modal-teacher').classList.remove('visible');document.getElementById('teacher-code-error').style.display='none';}
+function verifyTeacherCode(){
+  if(document.getElementById('teacher-code-input').value===TEACHER_CODE){closeTeacherModal();loadTeacherDashboard();}
+  else document.getElementById('teacher-code-error').style.display='block';
+}
+async function loadTeacherDashboard(){
+  showScreen('teacher');
+  const [eleves,pts,prog,sessions,badges]=[
+    await sbFetch('eleves?select=*&order=nom.asc')||[],
+    await sbFetch('points?select=*')||[],
+    await sbFetch('progression?select=*')||[],
+    await sbFetch('sessions?select=id')||[],
+    await sbFetch('badges?select=id')||[]
+  ];
+  document.getElementById('teacher-stats').innerHTML=`
+    <div class="stat-card"><div class="num">${eleves.length}</div><div class="lbl">Élèves inscrits</div></div>
+    <div class="stat-card"><div class="num">${sessions.length}</div><div class="lbl">Sessions réalisées</div></div>
+    <div class="stat-card"><div class="num">${badges.length}</div><div class="lbl">Badges gagnés</div></div>
+    <div class="stat-card"><div class="num">${Math.round(pts.reduce((s,p)=>s+p.total_points,0)/Math.max(eleves.length,1))}</div><div class="lbl">Points moy./élève</div></div>`;
+  document.getElementById('students-tbody').innerHTML=eleves.map(el=>{
+    const p=pts.find(x=>x.eleve_id===el.id)||{};
+    const pe=prog.filter(x=>x.eleve_id===el.id);
+    const gs=m=>{const e=pe.filter(x=>x.matiere===m);return e.length?Math.round(e.reduce((s,x)=>s+x.score_moyen,0)/e.length):0;};
+    const math=gs('mathematiques'),fr=gs('francais'),ev=gs('eveil');
+    const g=Math.round((math+fr+ev)/3);
+    const niv=g>=70?3:g>=40?2:1;
+    const nl=['','Débutant','En progrès','Maîtrise'][niv];
+    return `<tr>
+      <td><strong>${el.prenom} ${el.nom}</strong></td>
+      <td>${el.classe||'-'}</td>
+      <td>⭐ ${p.total_points||0}</td>
+      <td><div class="mini-bar"><div class="mini-bar-fill" style="width:${math}%;background:#4A90D9"></div></div> <span style="font-size:12px;color:var(--text-muted)">${math}%</span></td>
+      <td><div class="mini-bar"><div class="mini-bar-fill" style="width:${fr}%;background:#9B6FD4"></div></div> <span style="font-size:12px;color:var(--text-muted)">${fr}%</span></td>
+      <td><div class="mini-bar"><div class="mini-bar-fill" style="width:${ev}%;background:#52C97B"></div></div> <span style="font-size:12px;color:var(--text-muted)">${ev}%</span></td>
+      <td><span class="level-pill level-${niv}">${nl}</span></td>
+    </tr>`;
+  }).join('');
+}
+
+document.addEventListener('keydown',e=>{if(e.key==='Enter'&&document.getElementById('screen-welcome').classList.contains('active'))startApp();});
+</script>
+</body>
+</html>
